@@ -1,6 +1,6 @@
 {
   "name": "@rsi/core",
-  "version": "0.0.1",
+  "version": "0.0.2",
   "description": "All core functionality for RSI",
   "main": "dist/index.js",
   "types": "dist/index.d.ts",
@@ -12,11 +12,13 @@
   "license": "MIT",
   "dependencies": {
     "rxjs": "^5.5.2",
-    "uuid": "^3.0.1"
+    "uuid": "^3.0.1",
+    "winston": "^2.4.0"
   },
   "devDependencies": {
     "typescript": "^2.6.2",
     "@types/node": "^6.0.65",
+    "@types/winston": "^2.3.7",
     "@types/uuid": "^2.0.29"
   }
 }
