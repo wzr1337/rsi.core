@@ -1,0 +1,22 @@
+{
+  "name": "@rsi/core",
+  "version": "0.0.1",
+  "description": "All core functionality for RSI",
+  "main": "dist/index.js",
+  "types": "dist/index.d.ts",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "build": "tsc"
+  },
+  "author": "",
+  "license": "MIT",
+  "dependencies": {
+    "rxjs": "^5.5.2",
+    "uuid": "^3.0.1"
+  },
+  "devDependencies": {
+    "typescript": "^2.6.2",
+    "@types/node": "^6.0.65",
+    "@types/uuid": "^2.0.29"
+  }
+}
