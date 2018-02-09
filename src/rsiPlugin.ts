@@ -56,7 +56,7 @@ export class Service {
   getSpecification(){
 	  return this._specification;
   }
-  
+
   setSpecification(spec:string){
 	  this._specification = spec;
   }
@@ -92,11 +92,11 @@ export interface Resource {
   name:string;
   change:BehaviorSubject<ResourceUpdate>;
 
-  getResource?(offset?:string|number, limit?:string|number):CollectionResponse;         //GET /<service>/<resource>/
-  createElement?(state:{}):ElementResponse;                                             //POST /<service>/<resource>/
-  getElement(elementId:string):ElementResponse;                                         //GET /<service>/<resource>/<element>
-  updateElement?(elementId:string, difference:any):ElementResponse;                     //POST /<service>/<resource>/<element>
-  deleteElement?(elementId:string):ElementResponse;                                     //DELETE /<service>/<resource>/<element>
+  getResource?(offset?:string|number, limit?:string|number): Promise<CollectionResponse>;         //GET /<service>/<resource>/
+  createElement?(state:{}): Promise<ElementResponse>;                                             //POST /<service>/<resource>/
+  getElement(elementId:string): Promise<ElementResponse>;                                         //GET /<service>/<resource>/<element>
+  updateElement?(elementId:string, difference:any): Promise<ElementResponse>;                     //POST /<service>/<resource>/<element>
+  deleteElement?(elementId:string): Promise<ElementResponse>;                                     //DELETE /<service>/<resource>/<element>
   getResourceSpec?():any;
 
   resourceSubscribable?:Boolean;                                                        //subscribe /<service>/<resource>/
