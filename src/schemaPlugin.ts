@@ -78,8 +78,9 @@ export class SchemaPlugin extends Service {
                     this.updateUris(data);
                     let resource: SchemaResource = new SchemaResource(this, resourceDef, data, content.resources[resourceDef]);
                     this.resourceMap[resourceDef] = resource;
-                    resource.change.subscribe(() => {
-                        const rawData = resource.getResource().data.map((value: BehaviorSubject<any>) => {
+                    resource.change.subscribe(async () => {
+                        const collectionResponse: CollectionResponse = await resource.getResource();
+                        const rawData = collectionResponse.data.map((value: BehaviorSubject<any>) => {
                             return value.getValue().data;
                         });
                         this.data[resource.name] = rawData;
@@ -165,7 +166,7 @@ class SchemaResource implements Resource {
         return this._change;
     }
 
-    getElement(elementId: string): ElementResponse {
+    async getElement(elementId: string): Promise<ElementResponse> {
         return {
             status: 'ok',
             data: this._elements.find((element: BehaviorSubject<any>) => {
@@ -174,7 +175,7 @@ class SchemaResource implements Resource {
         };
     };
 
-    getResource(offset?: string | number, limit?: string | number): CollectionResponse {
+    async getResource(offset?: string | number, limit?: string | number): Promise<CollectionResponse> {
         let resp: BehaviorSubject<any>[];
 
         let o: number = 0;
@@ -208,8 +209,9 @@ class SchemaResource implements Resource {
         return this.spec;
     }
 
-    updateElement(elementId: string, difference: any): ElementResponse {
-        let element = this.getElement(elementId).data;
+    async updateElement(elementId: string, difference: any): Promise<ElementResponse> {
+        const elementResponse: ElementResponse = await this.getElement(elementId);
+        let element = elementResponse.data;
         var collection: any = element.getValue();
 
         let newData = Object.assign({}, collection.data, difference);
@@ -224,7 +226,7 @@ class SchemaResource implements Resource {
     }
 
 
-    createElement(state: any): ElementResponse {
+    async createElement(state: any): Promise<ElementResponse> {
         if (!state.name) return {
             status: 'error',
             error: new Error('providing a name is mandatory'),
@@ -249,7 +251,7 @@ class SchemaResource implements Resource {
     };
 
 
-    deleteElement(elementId: string): ElementResponse {
+    async deleteElement(elementId: string): Promise<ElementResponse> {
         let idx = this._elements.findIndex((element: BehaviorSubject<any>, index: number) => {
             return (<{ id: string }>element.getValue().data).id === elementId;
         });

@@ -56,11 +56,11 @@ export interface Addon {
 export interface Resource {
     name: string;
     change: BehaviorSubject<ResourceUpdate>;
-    getResource?(offset?: string | number, limit?: string | number): CollectionResponse;
-    createElement?(state: {}): ElementResponse;
-    getElement(elementId: string): ElementResponse;
-    updateElement?(elementId: string, difference: any): ElementResponse;
-    deleteElement?(elementId: string): ElementResponse;
+    getResource?(offset?: string | number, limit?: string | number): Promise<CollectionResponse>;
+    createElement?(state: {}): Promise<ElementResponse>;
+    getElement(elementId: string): Promise<ElementResponse>;
+    updateElement?(elementId: string, difference: any): Promise<ElementResponse>;
+    deleteElement?(elementId: string): Promise<ElementResponse>;
     getResourceSpec?(): any;
     resourceSubscribable?: Boolean;
     elementSubscribable?: Boolean;
