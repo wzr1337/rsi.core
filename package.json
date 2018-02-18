@@ -11,14 +11,14 @@
   "author": "",
   "license": "MIT",
   "dependencies": {
-    "rxjs": "^5.5.2",
-    "uuid": "^3.0.1",
+    "rxjs": "^5.5.6",
+    "uuid": "^3.2.1",
     "winston": "^2.4.0"
   },
   "devDependencies": {
-    "typescript": "^2.6.2",
-    "@types/node": "^6.0.65",
-    "@types/winston": "^2.3.7",
-    "@types/uuid": "^2.0.29"
+    "typescript": "^2.7.2",
+    "@types/node": "^9.4.6",
+    "@types/winston": "^2.3.8",
+    "@types/uuid": "^3.4.3"
   }
 }
