@@ -140,13 +140,27 @@ export interface Addon {
 
 }
 
-export interface Resource {
-  name:string;
-  change:BehaviorSubject<ResourceUpdate>;
+export abstract class Resource {
+
+  /**
+   * Retrieve the resource name in all-lower-case
+   * 
+   * @readonly
+   * @type {string}
+   * @memberof Service
+   */
+  get name(): string {
+    return this.constructor.name.toLowerCase();
+  }
+
+  protected _change: BehaviorSubject<ResourceUpdate>;
+  get change(): BehaviorSubject<ResourceUpdate> {
+    return this._change;
+  }
 
   getResource?(offset?:string|number, limit?:string|number): Promise<CollectionResponse>;         //GET /<service>/<resource>/
   createElement?(state:{}): Promise<ElementResponse>;                                             //POST /<service>/<resource>/
-  getElement(elementId:string): Promise<ElementResponse>;                                         //GET /<service>/<resource>/<element>
+  abstract getElement(elementId:string): Promise<ElementResponse>;                                         //GET /<service>/<resource>/<element>
   updateElement?(elementId:string, difference:any): Promise<ElementResponse>;                     //POST /<service>/<resource>/<element>
   deleteElement?(elementId:string): Promise<ElementResponse>;                                     //DELETE /<service>/<resource>/<element>
   getResourceSpec?():any;

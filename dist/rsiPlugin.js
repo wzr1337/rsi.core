@@ -44,11 +44,26 @@ var CollectionResponse = /** @class */ (function (_super) {
     return CollectionResponse;
 }(Response));
 exports.CollectionResponse = CollectionResponse;
+/**
+ * The general service class
+ *
+ * @export
+ * @class Service
+ */
 var Service = /** @class */ (function () {
     function Service() {
         this._resources = [];
+        this._id = "no id set";
+        this._specification = "";
     }
     Object.defineProperty(Service.prototype, "name", {
+        /**
+         * Retrieve the service name in all-lower-case
+         *
+         * @readonly
+         * @type {string}
+         * @memberof Service
+         */
         get: function () {
             return this.constructor.name.toLowerCase();
         },
@@ -56,9 +71,21 @@ var Service = /** @class */ (function () {
         configurable: true
     });
     Object.defineProperty(Service.prototype, "id", {
+        /**
+         * Retrive the services id
+         *
+         * @type {string}
+         * @memberof Service
+         */
         get: function () {
             return this._id;
         },
+        /**
+         * Setter for service id
+         *
+         * @param id {string} set the id
+         * @memberof Service
+         */
         set: function (id) {
             this._id = id;
         },
@@ -66,12 +93,26 @@ var Service = /** @class */ (function () {
         configurable: true
     });
     Object.defineProperty(Service.prototype, "resources", {
+        /**
+         * Get a list of resources providesd by the service
+         *
+         * @readonly
+         * @type {Resource[]} the rescoures provided by the service
+         * @memberof Service
+         */
         get: function () {
             return this._resources;
         },
         enumerable: true,
         configurable: true
     });
+    /**
+     * Get a dedicates of resource by name
+     *
+     * @param {string} name the resource name
+     * @returns {Resource}
+     * @memberof Service
+     */
     Service.prototype.getResource = function (name) {
         return this._resources.find(function (r) { return r.name === name; });
     };
@@ -84,4 +125,31 @@ var Service = /** @class */ (function () {
     return Service;
 }());
 exports.Service = Service;
+var Resource = /** @class */ (function () {
+    function Resource() {
+    }
+    Object.defineProperty(Resource.prototype, "name", {
+        /**
+         * Retrieve the resource name in all-lower-case
+         *
+         * @readonly
+         * @type {string}
+         * @memberof Service
+         */
+        get: function () {
+            return this.constructor.name.toLowerCase();
+        },
+        enumerable: true,
+        configurable: true
+    });
+    Object.defineProperty(Resource.prototype, "change", {
+        get: function () {
+            return this._change;
+        },
+        enumerable: true,
+        configurable: true
+    });
+    return Resource;
+}());
+exports.Resource = Resource;
 //# sourceMappingURL=rsiPlugin.js.map

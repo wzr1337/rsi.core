@@ -180,21 +180,24 @@ var SchemaPlugin = /** @class */ (function (_super) {
     return SchemaPlugin;
 }(rsiPlugin_1.Service));
 exports.SchemaPlugin = SchemaPlugin;
-var SchemaResource = /** @class */ (function () {
+var SchemaResource = /** @class */ (function (_super) {
+    __extends(SchemaResource, _super);
     function SchemaResource(service, name, rawElements, spec) {
-        this.service = service;
-        this.name = name;
-        this.spec = spec;
-        this._elements = [];
-        this._change = new rxjs_1.BehaviorSubject(null);
-        this._elements = rawElements.map(function (x) {
+        var _this = _super.call(this) || this;
+        _this.service = service;
+        _this.name = name;
+        _this.spec = spec;
+        _this._elements = [];
+        _this._change = new rxjs_1.BehaviorSubject(null);
+        _this._elements = rawElements.map(function (x) {
             return new rxjs_1.BehaviorSubject({
                 lastUpdate: Date.now(),
                 propertiesChanged: [],
                 data: x
             });
         });
-        this._change.next({ lastUpdate: Date.now(), action: 'add' });
+        _this._change.next({ lastUpdate: Date.now(), action: 'add' });
+        return _this;
     }
     Object.defineProperty(SchemaResource.prototype, "elementSubscribable", {
         get: function () {
@@ -212,13 +215,6 @@ var SchemaResource = /** @class */ (function () {
         configurable: true
     });
     ;
-    Object.defineProperty(SchemaResource.prototype, "change", {
-        get: function () {
-            return this._change;
-        },
-        enumerable: true,
-        configurable: true
-    });
     SchemaResource.prototype.getElement = function (elementId) {
         return __awaiter(this, void 0, void 0, function () {
             return __generator(this, function (_a) {
@@ -330,5 +326,5 @@ var SchemaResource = /** @class */ (function () {
         });
     };
     return SchemaResource;
-}());
+}(rsiPlugin_1.Resource));
 //# sourceMappingURL=schemaPlugin.js.map
