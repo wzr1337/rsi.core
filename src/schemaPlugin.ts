@@ -137,11 +137,12 @@ export class SchemaPlugin extends Service {
 }
 
 
-class SchemaResource implements Resource {
+class SchemaResource extends Resource {
     private _elements: BehaviorSubject<any>[] = [];
-    private _change: BehaviorSubject<ResourceUpdate> = new BehaviorSubject(null);
 
     constructor(private service: Service, public name: string, rawElements: Array<any>, private spec?: any) {
+        super();
+        this._change = new BehaviorSubject(null);
         this._elements = rawElements.map((x: any) => {
             return new BehaviorSubject<any>({
                 lastUpdate: Date.now(),
@@ -161,10 +162,6 @@ class SchemaResource implements Resource {
     get resourceSubscribable(): Boolean {
         return true;
     };
-
-    get change(): BehaviorSubject<ResourceUpdate> {
-        return this._change;
-    }
 
     async getElement(elementId: string): Promise<ElementResponse> {
         return {
