@@ -29,7 +29,7 @@ export declare class CollectionResponse extends Response {
  * @class Service
  */
 export declare class Service {
-    private _resources;
+    protected _resources: Resource[];
     private _id;
     private _specification;
     /**

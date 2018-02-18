@@ -35,7 +35,7 @@ export class CollectionResponse extends Response {
  * @class Service
  */
 export class Service {
-  private _resources:Resource[]=[];
+  protected _resources:Resource[]=[];
   private _id:string = "no id set";
   private _specification:string = "";
 
