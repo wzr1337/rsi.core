@@ -28,32 +28,71 @@ export class CollectionResponse extends Response {
   data?: BehaviorSubject<Element>[];
 }
 
+/**
+ * The general service class
+ * 
+ * @export
+ * @class Service
+ */
 export class Service {
   private _resources:Resource[]=[];
-  private _id:string;
-  private _specification:string;
+  private _id:string = "no id set";
+  private _specification:string = "";
 
-  get name() {
+  /**
+   * Retrieve the service name in all-lower-case
+   * 
+   * @readonly
+   * @type {string}
+   * @memberof Service
+   */
+  get name():string {
    return this.constructor.name.toLowerCase();
   }
 
-  get id() {
+  /**
+   * Retrive the services id
+   * 
+   * @type {string}
+   * @memberof Service
+   */
+  get id():string {
    return this._id;
   }
 
+  /**
+   * Setter for service id
+   * 
+   * @param id {string} set the id 
+   * @memberof Service
+   */
   set id(id:string) {
     this._id = id;
   }
 
-  get resources() {
+  /**
+   * Get a list of resources providesd by the service
+   * 
+   * @readonly
+   * @type {Resource[]} the rescoures provided by the service
+   * @memberof Service
+   */
+  get resources():Resource[] {
     return this._resources;
   }
 
+  /**
+   * Get a dedicates of resource by name
+   * 
+   * @param {string} name the resource name
+   * @returns {Resource}
+   * @memberof Service
+   */
   getResource(name:string):Resource {
     return this._resources.find((r:Resource) => {return r.name === name});
   }
 
-  getSpecification(){
+  getSpecification():string{
 	  return this._specification;
   }
 
@@ -62,12 +101,25 @@ export class Service {
   }
 }
 
+
+/**
+ * This is an interface definition for the viwi element level access
+ * 
+ * @export
+ * @interface Element
+ */
 export interface Element {
   lastUpdate: number;
   propertiesChanged: string[];
   data: any;
 }
 
+/**
+ * The resource updates are handled with this interface
+ * 
+ * @export
+ * @interface ResourceUpdate
+ */
 export interface ResourceUpdate {
   lastUpdate: number;
   oldValue?: any;
