@@ -5,12 +5,10 @@ export {
   ResourceUpdate,
   ElementResponse,
   CollectionResponse,
-  StatusCode
-} from './rsiPlugin';
+  StatusCode,
+  Xobject,
+} from './rsiPlugin'
 
-export { SchemaPlugin } from './schemaPlugin';
+export { SchemaPlugin } from './schemaPlugin'
 
-export {
-  rsiLogger, 
-  rsiLoggerInstance
-} from './rsiLogger';
+export { rsiLogger, rsiLoggerInstance } from './rsiLogger'

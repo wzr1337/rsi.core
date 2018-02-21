@@ -6,6 +6,7 @@ exports.Resource = rsiPlugin_1.Resource;
 exports.ElementResponse = rsiPlugin_1.ElementResponse;
 exports.CollectionResponse = rsiPlugin_1.CollectionResponse;
 exports.StatusCode = rsiPlugin_1.StatusCode;
+exports.Xobject = rsiPlugin_1.Xobject;
 var schemaPlugin_1 = require("./schemaPlugin");
 exports.SchemaPlugin = schemaPlugin_1.SchemaPlugin;
 var rsiLogger_1 = require("./rsiLogger");
