@@ -10,6 +10,7 @@ var __extends = (this && this.__extends) || (function () {
     };
 })();
 Object.defineProperty(exports, "__esModule", { value: true });
+var uuid_1 = require("uuid");
 var StatusCode;
 (function (StatusCode) {
     StatusCode[StatusCode["OK"] = 200] = "OK";
@@ -53,8 +54,8 @@ exports.CollectionResponse = CollectionResponse;
 var Service = /** @class */ (function () {
     function Service() {
         this._resources = [];
-        this._id = "no id set";
-        this._specification = "";
+        this._id = 'no id set';
+        this._specification = '';
     }
     Object.defineProperty(Service.prototype, "name", {
         /**
@@ -114,7 +115,9 @@ var Service = /** @class */ (function () {
      * @memberof Service
      */
     Service.prototype.getResource = function (name) {
-        return this._resources.find(function (r) { return r.name === name; });
+        return this._resources.find(function (r) {
+            return r.name === name;
+        });
     };
     Service.prototype.getSpecification = function () {
         return this._specification;
@@ -152,4 +155,49 @@ var Resource = /** @class */ (function () {
     return Resource;
 }());
 exports.Resource = Resource;
+var Xobject = /** @class */ (function () {
+    function Xobject(uuid, name) {
+        if (uuid === void 0) { uuid = uuid_1.v4(); }
+        if (name === void 0) { name = ''; }
+        this._id = uuid;
+        this._name = name;
+    }
+    Object.defineProperty(Xobject.prototype, "name", {
+        /**
+         * Retrieve the xObject name in all-lower-case
+         *
+         * @type {string}
+         * @memberof Xobject
+         */
+        get: function () {
+            return this._name.toLowerCase();
+        },
+        /**
+         * Setter for xObject name
+         *
+         * @param name {string} set the name
+         * @memberof Xobject
+         */
+        set: function (name) {
+            this._name = name;
+        },
+        enumerable: true,
+        configurable: true
+    });
+    Object.defineProperty(Xobject.prototype, "uuid", {
+        /**
+         * Retrieve the xObject uuid in all-lower-case
+         *
+         * @type {string}
+         * @memberof Xobject
+         */
+        get: function () {
+            return this._id;
+        },
+        enumerable: true,
+        configurable: true
+    });
+    return Xobject;
+}());
+exports.Xobject = Xobject;
 //# sourceMappingURL=rsiPlugin.js.map

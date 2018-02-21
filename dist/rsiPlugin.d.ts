@@ -1,17 +1,17 @@
 import { BehaviorSubject } from 'rxjs';
 export declare enum StatusCode {
-    "OK" = 200,
-    "CREATED" = 201,
-    "ACCEPTED" = 202,
-    "BAD_REQUEST" = 400,
-    "FORBIDDEN" = 403,
-    "NOT_FOUND" = 404,
-    "INTERNAL_SERVER_ERROR" = 500,
-    "NOT_IMPLEMENTED" = 501,
-    "SERVICE_UNAVAILABLE" = 503,
+    'OK' = 200,
+    'CREATED' = 201,
+    'ACCEPTED' = 202,
+    'BAD_REQUEST' = 400,
+    'FORBIDDEN' = 403,
+    'NOT_FOUND' = 404,
+    'INTERNAL_SERVER_ERROR' = 500,
+    'NOT_IMPLEMENTED' = 501,
+    'SERVICE_UNAVAILABLE' = 503,
 }
 export declare class Response {
-    status: "ok" | "error";
+    status: 'ok' | 'error';
     error?: Error;
     code?: StatusCode;
     message?: string;
@@ -93,7 +93,7 @@ export interface ResourceUpdate {
     lastUpdate: number;
     oldValue?: any;
     newValue?: any;
-    action: "init" | "add" | "move" | "remove" | "update";
+    action: 'init' | 'add' | 'move' | 'remove' | 'update';
 }
 export interface ServiceRepoAdd {
     (service: Service): void;
@@ -123,4 +123,29 @@ export declare abstract class Resource {
     getResourceSpec?(): any;
     resourceSubscribable?: Boolean;
     elementSubscribable?: Boolean;
+}
+export declare abstract class Xobject {
+    private _id;
+    private _name;
+    constructor(uuid?: string, name?: string);
+    /**
+     * Retrieve the xObject name in all-lower-case
+     *
+     * @type {string}
+     * @memberof Xobject
+     */
+    /**
+     * Setter for xObject name
+     *
+     * @param name {string} set the name
+     * @memberof Xobject
+     */
+    name: string;
+    /**
+     * Retrieve the xObject uuid in all-lower-case
+     *
+     * @type {string}
+     * @memberof Xobject
+     */
+    readonly uuid: string;
 }
