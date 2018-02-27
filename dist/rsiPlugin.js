@@ -10,6 +10,7 @@ var __extends = (this && this.__extends) || (function () {
     };
 })();
 Object.defineProperty(exports, "__esModule", { value: true });
+var uuid_1 = require("uuid");
 var StatusCode;
 (function (StatusCode) {
     StatusCode[StatusCode["OK"] = 200] = "OK";
@@ -152,4 +153,54 @@ var Resource = /** @class */ (function () {
     return Resource;
 }());
 exports.Resource = Resource;
+var Xobject = /** @class */ (function () {
+    /**
+     * @constructor with default values
+     * @param uuid {string} use id or if left empty an v4 uuid is auto generated
+     * @param name {string} use name of if left empty an empty string is created
+     */
+    function Xobject(uuid, name) {
+        if (uuid === void 0) { uuid = uuid_1.v4(); }
+        if (name === void 0) { name = ""; }
+        this._id = uuid;
+        this._name = name;
+    }
+    Object.defineProperty(Xobject.prototype, "name", {
+        /**
+         * Retrieve the xObject name
+         *
+         * @type {string}
+         * @memberof Xobject
+         */
+        get: function () {
+            return this._name;
+        },
+        /**
+         * Setter for xObject name
+         *
+         * @param name {string} set the name
+         * @memberof Xobject
+         */
+        set: function (name) {
+            this._name = name || "";
+        },
+        enumerable: true,
+        configurable: true
+    });
+    Object.defineProperty(Xobject.prototype, "uuid", {
+        /**
+         * Retrieve the xObject uuid
+         *
+         * @type {string}
+         * @memberof Xobject
+         */
+        get: function () {
+            return this._id;
+        },
+        enumerable: true,
+        configurable: true
+    });
+    return Xobject;
+}());
+exports.Xobject = Xobject;
 //# sourceMappingURL=rsiPlugin.js.map
