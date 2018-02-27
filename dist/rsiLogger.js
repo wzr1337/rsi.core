@@ -1,8 +1,7 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
 var winston = require("winston");
-;
-var LOGFILE = 'server.log';
+var LOGFILE = "server.log";
 var rsiLogger = /** @class */ (function () {
     function rsiLogger() {
         this._loggers = {};
@@ -19,19 +18,19 @@ var rsiLogger = /** @class */ (function () {
             this._loggers[name] = new (winston.Logger)({
                 transports: [
                     new (winston.transports.Console)({
-                        level: 'error',
+                        level: "error",
                         colorize: true,
                         prettyPrint: true,
                         timestamp: true,
-                        label: name
+                        label: name,
                     }),
                     new (winston.transports.File)({
                         filename: LOGFILE,
-                        level: 'error',
+                        level: "error",
                         timestamp: true,
-                        label: name
-                    })
-                ]
+                        label: name,
+                    }),
+                ],
             });
         }
         return this._loggers[name];

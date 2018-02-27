@@ -1,4 +1,4 @@
-import { BehaviorSubject } from 'rxjs';
+import { BehaviorSubject } from "rxjs";
 export declare enum StatusCode {
     "OK" = 200,
     "CREATED" = 201,
@@ -20,7 +20,7 @@ export declare class ElementResponse extends Response {
     data?: BehaviorSubject<Element>;
 }
 export declare class CollectionResponse extends Response {
-    data?: BehaviorSubject<Element>[];
+    data?: Array<BehaviorSubject<Element>>;
 }
 /**
  * The general service class
@@ -95,12 +95,8 @@ export interface ResourceUpdate {
     newValue?: any;
     action: "init" | "add" | "move" | "remove" | "update";
 }
-export interface ServiceRepoAdd {
-    (service: Service): void;
-}
-export interface ServiceAdder {
-    (repo: ServiceRepoAdd): void;
-}
+export declare type ServiceRepoAdd = (service: Service) => void;
+export declare type ServiceAdder = (repo: ServiceRepoAdd) => void;
 export interface Addon {
     addServices: ServiceAdder;
 }

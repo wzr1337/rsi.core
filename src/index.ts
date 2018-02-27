@@ -6,12 +6,12 @@ export {
   ElementResponse,
   CollectionResponse,
   StatusCode,
-  Xobject
-} from './rsiPlugin';
+  Xobject,
+} from "./rsiPlugin";
 
-export { SchemaPlugin } from './schemaPlugin';
+export { SchemaPlugin } from "./schemaPlugin";
 
 export {
   rsiLogger,
-  rsiLoggerInstance
-} from './rsiLogger';
+  rsiLoggerInstance,
+} from "./rsiLogger";

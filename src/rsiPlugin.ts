@@ -1,5 +1,5 @@
-import { BehaviorSubject, Subject } from 'rxjs';
-import { v4 } from 'uuid';
+import { BehaviorSubject, Subject } from "rxjs";
+import { v4 } from "uuid";
 
 export enum StatusCode {
   "OK" = 200,
@@ -10,23 +10,22 @@ export enum StatusCode {
   "NOT_FOUND" = 404,
   "INTERNAL_SERVER_ERROR" = 500,
   "NOT_IMPLEMENTED" = 501,
-  "SERVICE_UNAVAILABLE" = 503
+  "SERVICE_UNAVAILABLE" = 503,
 }
 
-
 export class Response {
-  status: "ok" | "error";
-  error?: Error;
-  code?: StatusCode;
-  message?: string;
+  public status: "ok" | "error";
+  public error?: Error;
+  public code?: StatusCode;
+  public message?: string;
 }
 
 export class ElementResponse extends Response {
-  data?: BehaviorSubject<Element>;
+  public data?: BehaviorSubject<Element>;
 }
 
 export class CollectionResponse extends Response {
-  data?: BehaviorSubject<Element>[];
+  public data?: Array<BehaviorSubject<Element>>;
 }
 
 /**
@@ -36,9 +35,9 @@ export class CollectionResponse extends Response {
  * @class Service
  */
 export class Service {
-  protected _resources:Resource[]=[];
-  private _id:string = "no id set";
-  private _specification:string = "";
+  protected _resources: Resource[] = [];
+  private _id: string = "no id set";
+  private _specification: string = "";
 
   /**
    * Retrieve the service name in all-lower-case
@@ -47,7 +46,7 @@ export class Service {
    * @type {string}
    * @memberof Service
    */
-  get name():string {
+  get name(): string {
    return this.constructor.name.toLowerCase();
   }
 
@@ -57,7 +56,7 @@ export class Service {
    * @type {string}
    * @memberof Service
    */
-  get id():string {
+  get id(): string {
    return this._id;
   }
 
@@ -67,7 +66,7 @@ export class Service {
    * @param id {string} set the id
    * @memberof Service
    */
-  set id(id:string) {
+  set id(id: string) {
     this._id = id;
   }
 
@@ -78,7 +77,7 @@ export class Service {
    * @type {Resource[]} the rescoures provided by the service
    * @memberof Service
    */
-  get resources():Resource[] {
+  get resources(): Resource[] {
     return this._resources;
   }
 
@@ -89,19 +88,18 @@ export class Service {
    * @returns {Resource}
    * @memberof Service
    */
-  getResource(name:string):Resource {
-    return this._resources.find((r:Resource) => {return r.name === name});
+  public getResource(name: string): Resource {
+    return this._resources.find((r: Resource) => r.name === name);
   }
 
-  getSpecification():string{
+  public getSpecification(): string {
 	  return this._specification;
   }
 
-  setSpecification(spec:string){
+  public setSpecification(spec: string) {
 	  this._specification = spec;
   }
 }
-
 
 /**
  * This is an interface definition for the viwi element level access
@@ -128,13 +126,9 @@ export interface ResourceUpdate {
   action: "init"|"add"|"move"|"remove"|"update";
 }
 
-export interface ServiceRepoAdd {
-  (service: Service): void;
-}
+export type ServiceRepoAdd = (service: Service) => void;
 
-export interface ServiceAdder {
-  (repo: ServiceRepoAdd): void;
-}
+export type ServiceAdder = (repo: ServiceRepoAdd) => void;
 
 export interface Addon {
   addServices: ServiceAdder;
@@ -159,15 +153,15 @@ export abstract class Resource {
     return this._change;
   }
 
-  getResource?(offset?:string|number, limit?:string|number): Promise<CollectionResponse>;         //GET /<service>/<resource>/
-  createElement?(state:{}): Promise<ElementResponse>;                                             //POST /<service>/<resource>/
-  abstract getElement(elementId:string): Promise<ElementResponse>;                                         //GET /<service>/<resource>/<element>
-  updateElement?(elementId:string, difference:any): Promise<ElementResponse>;                     //POST /<service>/<resource>/<element>
-  deleteElement?(elementId:string): Promise<ElementResponse>;                                     //DELETE /<service>/<resource>/<element>
-  getResourceSpec?():any;
+  public getResource?(offset?: string|number, limit?: string|number): Promise<CollectionResponse>;         //GET /<service>/<resource>/
+  public createElement?(state: {}): Promise<ElementResponse>;                                             //POST /<service>/<resource>/
+  public abstract getElement(elementId: string): Promise<ElementResponse>;                                         //GET /<service>/<resource>/<element>
+  public updateElement?(elementId: string, difference: any): Promise<ElementResponse>;                     //POST /<service>/<resource>/<element>
+  public deleteElement?(elementId: string): Promise<ElementResponse>;                                     //DELETE /<service>/<resource>/<element>
+  public getResourceSpec?(): any;
 
-  resourceSubscribable?:Boolean;                                                        //subscribe /<service>/<resource>/
-  elementSubscribable?:Boolean;                                                         //subscribe /<service>/<resource>/<element>
+  public resourceSubscribable?: Boolean;                                                        //subscribe /<service>/<resource>/
+  public elementSubscribable?: Boolean;                                                         //subscribe /<service>/<resource>/<element>
 }
 
 export abstract class Xobject {
