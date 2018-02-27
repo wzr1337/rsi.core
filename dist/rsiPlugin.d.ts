@@ -124,3 +124,33 @@ export declare abstract class Resource {
     resourceSubscribable?: Boolean;
     elementSubscribable?: Boolean;
 }
+export declare abstract class Xobject {
+    private _id;
+    private _name;
+    /**
+     * @constructor with default values
+     * @param uuid {string} use id or if left empty an v4 uuid is auto generated
+     * @param name {string} use name of if left empty an empty string is created
+     */
+    constructor(uuid?: string, name?: string);
+    /**
+     * Retrieve the xObject name
+     *
+     * @type {string}
+     * @memberof Xobject
+     */
+    /**
+     * Setter for xObject name
+     *
+     * @param name {string} set the name
+     * @memberof Xobject
+     */
+    name: string;
+    /**
+     * Retrieve the xObject uuid
+     *
+     * @type {string}
+     * @memberof Xobject
+     */
+    readonly uuid: string;
+}

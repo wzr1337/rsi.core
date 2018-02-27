@@ -1,4 +1,5 @@
 import { BehaviorSubject, Subject } from 'rxjs';
+import { v4 } from 'uuid';
 
 export enum StatusCode {
   "OK" = 200,
@@ -30,7 +31,7 @@ export class CollectionResponse extends Response {
 
 /**
  * The general service class
- * 
+ *
  * @export
  * @class Service
  */
@@ -41,7 +42,7 @@ export class Service {
 
   /**
    * Retrieve the service name in all-lower-case
-   * 
+   *
    * @readonly
    * @type {string}
    * @memberof Service
@@ -52,7 +53,7 @@ export class Service {
 
   /**
    * Retrive the services id
-   * 
+   *
    * @type {string}
    * @memberof Service
    */
@@ -62,8 +63,8 @@ export class Service {
 
   /**
    * Setter for service id
-   * 
-   * @param id {string} set the id 
+   *
+   * @param id {string} set the id
    * @memberof Service
    */
   set id(id:string) {
@@ -72,7 +73,7 @@ export class Service {
 
   /**
    * Get a list of resources providesd by the service
-   * 
+   *
    * @readonly
    * @type {Resource[]} the rescoures provided by the service
    * @memberof Service
@@ -83,7 +84,7 @@ export class Service {
 
   /**
    * Get a dedicates of resource by name
-   * 
+   *
    * @param {string} name the resource name
    * @returns {Resource}
    * @memberof Service
@@ -104,7 +105,7 @@ export class Service {
 
 /**
  * This is an interface definition for the viwi element level access
- * 
+ *
  * @export
  * @interface Element
  */
@@ -116,7 +117,7 @@ export interface Element {
 
 /**
  * The resource updates are handled with this interface
- * 
+ *
  * @export
  * @interface ResourceUpdate
  */
@@ -144,7 +145,7 @@ export abstract class Resource {
 
   /**
    * Retrieve the resource name in all-lower-case
-   * 
+   *
    * @readonly
    * @type {string}
    * @memberof Service
@@ -167,4 +168,49 @@ export abstract class Resource {
 
   resourceSubscribable?:Boolean;                                                        //subscribe /<service>/<resource>/
   elementSubscribable?:Boolean;                                                         //subscribe /<service>/<resource>/<element>
+}
+
+export abstract class Xobject {
+  private _id: string;
+  private _name: string;
+
+  /**
+   * @constructor with default values
+   * @param uuid {string} use id or if left empty an v4 uuid is auto generated
+   * @param name {string} use name of if left empty an empty string is created
+   */
+  constructor(uuid: string = v4(), name: string = "") {
+    this._id = uuid;
+    this._name = name;
+  }
+
+  /**
+   * Retrieve the xObject name
+   *
+   * @type {string}
+   * @memberof Xobject
+   */
+  get name(): string {
+    return this._name;
+  }
+
+  /**
+   * Setter for xObject name
+   *
+   * @param name {string} set the name
+   * @memberof Xobject
+   */
+  set name(name: string) {
+    this._name = name || "";
+  }
+
+  /**
+   * Retrieve the xObject uuid
+   *
+   * @type {string}
+   * @memberof Xobject
+   */
+  get uuid(): string {
+    return this._id;
+  }
 }
