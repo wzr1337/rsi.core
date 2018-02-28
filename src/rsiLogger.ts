@@ -1,45 +1,44 @@
+/* tslint:disable:no-empty-interface */
 import * as winston from "winston";
-
-export interface rsiLoggerInstance extends winston.LoggerInstance { }
+export interface IRsiLoggerInstance extends winston.LoggerInstance { }
 
 const LOGFILE = "server.log";
 
-export class rsiLogger {
+export class RsiLogger {
 
-  private static _instance: rsiLogger = new rsiLogger();
-  public _loggers: { [name: string]: rsiLoggerInstance } = {};
+  public static getInstance(): RsiLogger {
+    return RsiLogger.instance;
+  }
+  private static instance: RsiLogger = new RsiLogger();
+  public loggers: { [name: string]: IRsiLoggerInstance } = {};
 
   constructor() {
-    if (rsiLogger._instance) {
+    if (RsiLogger.instance) {
       throw new Error("Error: Instantiation failed: Use SingletonClass.getInstance() instead of new.");
     }
-    rsiLogger._instance = this;
+    RsiLogger.instance = this;
   }
 
-  public static getInstance(): rsiLogger {
-    return rsiLogger._instance;
-  }
-
-  public getLogger(name: string): rsiLoggerInstance {
-    if (!this._loggers.hasOwnProperty(name)) {
-      this._loggers[name] = new (winston.Logger)({
+  public getLogger(name: string): IRsiLoggerInstance {
+    if (!this.loggers.hasOwnProperty(name)) {
+      this.loggers[name] = new (winston.Logger)({
         transports: [
           new (winston.transports.Console)({
-            level: "error",
             colorize: true,
-            prettyPrint: true,
-            timestamp: true,
             label: name,
+            level: "error",
+            prettyPrint: true,
+            timestamp: true
           }),
           new (winston.transports.File)({
             filename: LOGFILE,
-            level: "error",
-            timestamp: true,
             label: name,
-          }),
-        ],
+            level: "error",
+            timestamp: true
+          })
+        ]
       });
     }
-    return this._loggers[name];
+    return this.loggers[name];
   }
 }
