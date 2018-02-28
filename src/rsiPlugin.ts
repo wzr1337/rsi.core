@@ -21,11 +21,11 @@ export class Response {
 }
 
 export class ElementResponse extends Response {
-  public data?: BehaviorSubject<Element>;
+  public data?: BehaviorSubject<IElement>;
 }
 
 export class CollectionResponse extends Response {
-  public data?: Array<BehaviorSubject<Element>>;
+  public data?: Array<BehaviorSubject<IElement>>;
 }
 
 /**
@@ -107,7 +107,7 @@ export class Service {
  * @export
  * @interface Element
  */
-export interface Element {
+export interface IElement {
   lastUpdate: number;
   propertiesChanged: string[];
   data: any;
@@ -119,19 +119,19 @@ export interface Element {
  * @export
  * @interface ResourceUpdate
  */
-export interface ResourceUpdate {
+export interface IResourceUpdate {
   lastUpdate: number;
   oldValue?: any;
   newValue?: any;
   action: "init"|"add"|"move"|"remove"|"update";
 }
 
-export type ServiceRepoAdd = (service: Service) => void;
+export type IServiceRepoAdd = (service: Service) => void;
 
-export type ServiceAdder = (repo: ServiceRepoAdd) => void;
+export type IServiceAdder = (repo: IServiceRepoAdd) => void;
 
-export interface Addon {
-  addServices: ServiceAdder;
+export interface IAddon {
+  addServices: IServiceAdder;
 
 }
 
@@ -148,8 +148,8 @@ export abstract class Resource {
     return this.constructor.name.toLowerCase();
   }
 
-  protected _change: BehaviorSubject<ResourceUpdate>;
-  get change(): BehaviorSubject<ResourceUpdate> {
+  protected _change: BehaviorSubject<IResourceUpdate>;
+  get change(): BehaviorSubject<IResourceUpdate> {
     return this._change;
   }
 

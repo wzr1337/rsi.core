@@ -4,7 +4,7 @@ import path = require("path");
 import { join } from "path";
 import { BehaviorSubject } from "rxjs";
 import * as uuid from "uuid";
-import { CollectionResponse, ElementResponse, Resource, ResourceUpdate, Service, StatusCode } from "./rsiPlugin";
+import { CollectionResponse, ElementResponse, IResourceUpdate, Resource, Service, StatusCode } from "./rsiPlugin";
 
 export class SchemaPlugin extends Service {
 
@@ -29,6 +29,7 @@ export class SchemaPlugin extends Service {
         this.onReady();
     }
 
+    // tslint:disable-next-line:no-empty
     public onReady() {
 
     }
@@ -71,7 +72,7 @@ export class SchemaPlugin extends Service {
                     }
                 }
 
-                for (const resourceDef in content.resources) {
+                for (let resourceDef in content.resources) {
                     const data: any = this.data[resourceDef] || [];
                     this.updateUris(data);
                     const resource: SchemaResource = new SchemaResource(this, resourceDef, data, content.resources[resourceDef]);
@@ -115,7 +116,7 @@ export class SchemaPlugin extends Service {
          data.uri = 'http://localhost:3000/' + this.name + '/' + this.elementKeyMap[data.id].resource + '/' + data.id;
          }
          */
-        for (const i in clone) {
+        for (let i in clone) {
             if (typeof clone[i] === "object") {
                 if (clone[i] && clone[i].hasOwnProperty("id")) {
                     this.updateUris(clone[i]);
@@ -163,7 +164,7 @@ class SchemaResource extends Resource {
             status: "ok",
             data: this._elements.find((element: BehaviorSubject<any>) => {
                 return (element.getValue().data as { id: string }).id === elementId;
-            }),
+            })
         };
     }
 
@@ -221,7 +222,7 @@ class SchemaResource extends Resource {
         if (!state.name) { return {
             status: "error",
             error: new Error("providing a name is mandatory"),
-            code: StatusCode.INTERNAL_SERVER_ERROR,
+            code: StatusCode.INTERNAL_SERVER_ERROR
         };
         }
 

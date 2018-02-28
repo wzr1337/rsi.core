@@ -69,6 +69,7 @@ var SchemaPlugin = /** @class */ (function (_super) {
         this.readSchema();
         this.onReady();
     };
+    // tslint:disable-next-line:no-empty
     SchemaPlugin.prototype.onReady = function () {
     };
     SchemaPlugin.prototype.readData = function () {
@@ -291,7 +292,7 @@ var SchemaResource = /** @class */ (function (_super) {
                     return [2 /*return*/, {
                             status: "error",
                             error: new Error("providing a name is mandatory"),
-                            code: rsiPlugin_1.StatusCode.INTERNAL_SERVER_ERROR,
+                            code: rsiPlugin_1.StatusCode.INTERNAL_SERVER_ERROR
                         }];
                 }
                 if (!state.id) {

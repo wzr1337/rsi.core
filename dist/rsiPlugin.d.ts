@@ -17,10 +17,10 @@ export declare class Response {
     message?: string;
 }
 export declare class ElementResponse extends Response {
-    data?: BehaviorSubject<Element>;
+    data?: BehaviorSubject<IElement>;
 }
 export declare class CollectionResponse extends Response {
-    data?: Array<BehaviorSubject<Element>>;
+    data?: Array<BehaviorSubject<IElement>>;
 }
 /**
  * The general service class
@@ -78,7 +78,7 @@ export declare class Service {
  * @export
  * @interface Element
  */
-export interface Element {
+export interface IElement {
     lastUpdate: number;
     propertiesChanged: string[];
     data: any;
@@ -89,16 +89,16 @@ export interface Element {
  * @export
  * @interface ResourceUpdate
  */
-export interface ResourceUpdate {
+export interface IResourceUpdate {
     lastUpdate: number;
     oldValue?: any;
     newValue?: any;
     action: "init" | "add" | "move" | "remove" | "update";
 }
-export declare type ServiceRepoAdd = (service: Service) => void;
-export declare type ServiceAdder = (repo: ServiceRepoAdd) => void;
-export interface Addon {
-    addServices: ServiceAdder;
+export declare type IServiceRepoAdd = (service: Service) => void;
+export declare type IServiceAdder = (repo: IServiceRepoAdd) => void;
+export interface IAddon {
+    addServices: IServiceAdder;
 }
 export declare abstract class Resource {
     /**
@@ -109,8 +109,8 @@ export declare abstract class Resource {
      * @memberof Service
      */
     readonly name: string;
-    protected _change: BehaviorSubject<ResourceUpdate>;
-    readonly change: BehaviorSubject<ResourceUpdate>;
+    protected _change: BehaviorSubject<IResourceUpdate>;
+    readonly change: BehaviorSubject<IResourceUpdate>;
     getResource?(offset?: string | number, limit?: string | number): Promise<CollectionResponse>;
     createElement?(state: {}): Promise<ElementResponse>;
     abstract getElement(elementId: string): Promise<ElementResponse>;
