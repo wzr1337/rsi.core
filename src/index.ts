@@ -1,17 +1,17 @@
 export {
   Service,
   Resource,
-  Element,
-  ResourceUpdate,
+  IElement,
+  IResourceUpdate,
   ElementResponse,
   CollectionResponse,
   StatusCode,
-  Xobject,
+  Xobject
 } from "./rsiPlugin";
 
 export { SchemaPlugin } from "./schemaPlugin";
 
 export {
   rsiLogger,
-  rsiLoggerInstance,
+  rsiLoggerInstance
 } from "./rsiLogger";

@@ -21,11 +21,11 @@ export class Response {
 }
 
 export class ElementResponse extends Response {
-  public data?: BehaviorSubject<Element>;
+  public data?: BehaviorSubject<IElement>;
 }
 
 export class CollectionResponse extends Response {
-  public data?: Array<BehaviorSubject<Element>>;
+  public data?: BehaviorSubject<IElement>[];
 }
 
 /**
@@ -88,15 +88,15 @@ export class Service {
    * @returns {Resource}
    * @memberof Service
    */
-  public getResource(name: string): Resource {
-    return this._resources.find((r: Resource) => r.name === name);
+  public getResource(name:string):Resource {
+    return this._resources.find((r:Resource) => {return r.name === name});
   }
 
-  public getSpecification(): string {
+  public getSpecification():string{
 	  return this._specification;
   }
 
-  public setSpecification(spec: string) {
+  public setSpecification(spec:string){
 	  this._specification = spec;
   }
 }
@@ -107,7 +107,7 @@ export class Service {
  * @export
  * @interface Element
  */
-export interface Element {
+export interface IElement {
   lastUpdate: number;
   propertiesChanged: string[];
   data: any;
@@ -119,19 +119,23 @@ export interface Element {
  * @export
  * @interface ResourceUpdate
  */
-export interface ResourceUpdate {
+export interface IResourceUpdate {
   lastUpdate: number;
   oldValue?: any;
   newValue?: any;
   action: "init"|"add"|"move"|"remove"|"update";
 }
 
-export type ServiceRepoAdd = (service: Service) => void;
+export interface IServiceRepoAdd {
+  (service: Service): void;
+}
 
-export type ServiceAdder = (repo: ServiceRepoAdd) => void;
+export interface IServiceAdder {
+  (repo: IServiceRepoAdd): void;
+}
 
-export interface Addon {
-  addServices: ServiceAdder;
+export interface IAddon {
+  addServices: IServiceAdder;
 
 }
 
@@ -148,20 +152,20 @@ export abstract class Resource {
     return this.constructor.name.toLowerCase();
   }
 
-  protected _change: BehaviorSubject<ResourceUpdate>;
-  get change(): BehaviorSubject<ResourceUpdate> {
+  protected _change: BehaviorSubject<IResourceUpdate>;
+  get change(): BehaviorSubject<IResourceUpdate> {
     return this._change;
   }
 
-  public getResource?(offset?: string|number, limit?: string|number): Promise<CollectionResponse>;         //GET /<service>/<resource>/
-  public createElement?(state: {}): Promise<ElementResponse>;                                             //POST /<service>/<resource>/
-  public abstract getElement(elementId: string): Promise<ElementResponse>;                                         //GET /<service>/<resource>/<element>
-  public updateElement?(elementId: string, difference: any): Promise<ElementResponse>;                     //POST /<service>/<resource>/<element>
-  public deleteElement?(elementId: string): Promise<ElementResponse>;                                     //DELETE /<service>/<resource>/<element>
-  public getResourceSpec?(): any;
+  public getResource?(offset?:string|number, limit?:string|number): Promise<CollectionResponse>;         //GET /<service>/<resource>/
+  public createElement?(state:{}): Promise<ElementResponse>;                                             //POST /<service>/<resource>/
+  public abstract getElement(elementId:string): Promise<ElementResponse>;                                         //GET /<service>/<resource>/<element>
+  public updateElement?(elementId:string, difference:any): Promise<ElementResponse>;                     //POST /<service>/<resource>/<element>
+  public deleteElement?(elementId:string): Promise<ElementResponse>;                                     //DELETE /<service>/<resource>/<element>
+  public getResourceSpec?():any;
 
-  public resourceSubscribable?: Boolean;                                                        //subscribe /<service>/<resource>/
-  public elementSubscribable?: Boolean;                                                         //subscribe /<service>/<resource>/<element>
+  public resourceSubscribable?:Boolean;                                                        //subscribe /<service>/<resource>/
+  public elementSubscribable?:Boolean;                                                         //subscribe /<service>/<resource>/<element>
 }
 
 export abstract class Xobject {
