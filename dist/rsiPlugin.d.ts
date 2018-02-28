@@ -20,7 +20,7 @@ export declare class ElementResponse extends Response {
     data?: BehaviorSubject<IElement>;
 }
 export declare class CollectionResponse extends Response {
-    data?: BehaviorSubject<IElement>[];
+    data?: Array<BehaviorSubject<IElement>>;
 }
 /**
  * The general service class
@@ -95,12 +95,8 @@ export interface IResourceUpdate {
     newValue?: any;
     action: "init" | "add" | "move" | "remove" | "update";
 }
-export interface IServiceRepoAdd {
-    (service: Service): void;
-}
-export interface IServiceAdder {
-    (repo: IServiceRepoAdd): void;
-}
+export declare type IServiceRepoAdd = (service: Service) => void;
+export declare type IServiceAdder = (repo: IServiceRepoAdd) => void;
 export interface IAddon {
     addServices: IServiceAdder;
 }

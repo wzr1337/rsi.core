@@ -25,7 +25,7 @@ export class ElementResponse extends Response {
 }
 
 export class CollectionResponse extends Response {
-  public data?: BehaviorSubject<IElement>[];
+  public data?: Array<BehaviorSubject<IElement>>;
 }
 
 /**
@@ -88,15 +88,15 @@ export class Service {
    * @returns {Resource}
    * @memberof Service
    */
-  public getResource(name:string):Resource {
-    return this._resources.find((r:Resource) => {return r.name === name});
+  public getResource(name: string): Resource {
+    return this._resources.find((r: Resource) => r.name === name);
   }
 
-  public getSpecification():string{
+  public getSpecification(): string {
 	  return this._specification;
   }
 
-  public setSpecification(spec:string){
+  public setSpecification(spec: string) {
 	  this._specification = spec;
   }
 }
@@ -126,13 +126,9 @@ export interface IResourceUpdate {
   action: "init"|"add"|"move"|"remove"|"update";
 }
 
-export interface IServiceRepoAdd {
-  (service: Service): void;
-}
+export type IServiceRepoAdd = (service: Service) => void;
 
-export interface IServiceAdder {
-  (repo: IServiceRepoAdd): void;
-}
+export type IServiceAdder = (repo: IServiceRepoAdd) => void;
 
 export interface IAddon {
   addServices: IServiceAdder;
@@ -157,15 +153,15 @@ export abstract class Resource {
     return this._change;
   }
 
-  public getResource?(offset?:string|number, limit?:string|number): Promise<CollectionResponse>;         //GET /<service>/<resource>/
-  public createElement?(state:{}): Promise<ElementResponse>;                                             //POST /<service>/<resource>/
-  public abstract getElement(elementId:string): Promise<ElementResponse>;                                         //GET /<service>/<resource>/<element>
-  public updateElement?(elementId:string, difference:any): Promise<ElementResponse>;                     //POST /<service>/<resource>/<element>
-  public deleteElement?(elementId:string): Promise<ElementResponse>;                                     //DELETE /<service>/<resource>/<element>
-  public getResourceSpec?():any;
+  public getResource?(offset?: string|number, limit?: string|number): Promise<CollectionResponse>;         //GET /<service>/<resource>/
+  public createElement?(state: {}): Promise<ElementResponse>;                                             //POST /<service>/<resource>/
+  public abstract getElement(elementId: string): Promise<ElementResponse>;                                         //GET /<service>/<resource>/<element>
+  public updateElement?(elementId: string, difference: any): Promise<ElementResponse>;                     //POST /<service>/<resource>/<element>
+  public deleteElement?(elementId: string): Promise<ElementResponse>;                                     //DELETE /<service>/<resource>/<element>
+  public getResourceSpec?(): any;
 
-  public resourceSubscribable?:Boolean;                                                        //subscribe /<service>/<resource>/
-  public elementSubscribable?:Boolean;                                                         //subscribe /<service>/<resource>/<element>
+  public resourceSubscribable?: Boolean;                                                        //subscribe /<service>/<resource>/
+  public elementSubscribable?: Boolean;                                                         //subscribe /<service>/<resource>/<element>
 }
 
 export abstract class Xobject {

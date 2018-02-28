@@ -1,8 +1,6 @@
 {
   "defaultSeverity": "error",
-  "extends": [
-    "tslint:recommended"
-  ],
+  "extends": ["tslint:recommended"],
   "jsRules": {},
   "rules": {
     "trailing-comma": [
@@ -17,11 +15,7 @@
         "esSpecCompliant": true
       }
     ],
-    "no-console": [
-      true,
-      "dir",
-      "error"
-    ]
+    "no-console": [true, "dir", "error"]
   },
   "rulesDirectory": []
 }

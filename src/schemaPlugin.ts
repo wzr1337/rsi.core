@@ -1,10 +1,10 @@
 import fs = require("fs");
-import path = require("path");
-import { BehaviorSubject } from "rxjs";
-import { Service, Resource, IResourceUpdate, CollectionResponse, ElementResponse, StatusCode } from "./rsiPlugin";
-import * as uuid from "uuid";
-import { join } from "path";
 import { existsSync, readFileSync } from "fs";
+import path = require("path");
+import { join } from "path";
+import { BehaviorSubject } from "rxjs";
+import * as uuid from "uuid";
+import { CollectionResponse, ElementResponse, IResourceUpdate, Resource, Service, StatusCode } from "./rsiPlugin";
 
 export class SchemaPlugin extends Service {
 
@@ -72,7 +72,7 @@ export class SchemaPlugin extends Service {
                     }
                 }
 
-                for (var resourceDef in content.resources) {
+                for (let resourceDef in content.resources) {
                     const data: any = this.data[resourceDef] || [];
                     this.updateUris(data);
                     const resource: SchemaResource = new SchemaResource(this, resourceDef, data, content.resources[resourceDef]);
@@ -109,7 +109,6 @@ export class SchemaPlugin extends Service {
         }
     }
 
-
     public updateUris(data: any) {
         const clone = data;
         /* TODO: Set absolute uris
@@ -117,7 +116,7 @@ export class SchemaPlugin extends Service {
          data.uri = 'http://localhost:3000/' + this.name + '/' + this.elementKeyMap[data.id].resource + '/' + data.id;
          }
          */
-        for (var i in clone) {
+        for (let i in clone) {
             if (typeof clone[i] === "object") {
                 if (clone[i] && clone[i].hasOwnProperty("id")) {
                     this.updateUris(clone[i]);
@@ -149,7 +148,6 @@ class SchemaResource extends Resource {
             });
         });
 
-
         this._change.next({ lastUpdate: Date.now(), action: "add" });
     }
 
@@ -166,12 +164,12 @@ class SchemaResource extends Resource {
             status: "ok",
             data: this._elements.find((element: BehaviorSubject<any>) => {
                 return (element.getValue().data as { id: string }).id === elementId;
-            }),
+            })
         };
     }
 
     public async getResource(offset?: string | number, limit?: string | number): Promise<CollectionResponse> {
-        let resp: BehaviorSubject<any>[];
+        let resp: Array<BehaviorSubject<any>>;
 
         let o: number = 0;
         let l: number = this._elements.length;
@@ -220,9 +218,8 @@ class SchemaResource extends Resource {
         return { status: "ok" };
     }
 
-
     public async createElement(state: any): Promise<ElementResponse> {
-        if (!state.name) return {
+        if (!state.name) { return {
             status: "error",
             error: new Error("providing a name is mandatory"),
             code: StatusCode.INTERNAL_SERVER_ERROR
@@ -234,7 +231,6 @@ class SchemaResource extends Resource {
         }
         state.uri = "/" + this.service.name.toLowerCase() + "/" + this.name.toLowerCase() + "/" + state.id;
 
-
         const newElement: BehaviorSubject<any> = new BehaviorSubject<any>({
             lastUpdate: Date.now(),
             propertiesChanged: [],
@@ -244,12 +240,11 @@ class SchemaResource extends Resource {
         this._elements.push(newElement);
         this._change.next({ lastUpdate: Date.now(), action: "add" });
         return { status: "ok", data: newElement };
-    };
-
+    }
 
     public async deleteElement(elementId: string): Promise<ElementResponse> {
         const idx = this._elements.findIndex((element: BehaviorSubject<any>, index: number) => {
-            return (<{ id: string }>element.getValue().data).id === elementId;
+            return (element.getValue().data as { id: string }).id === elementId;
         });
 
         if (-1 !== idx) {
