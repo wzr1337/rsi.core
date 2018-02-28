@@ -1,8 +1,8 @@
 import * as winston from "winston";
 
-export interface rsiLoggerInstance extends winston.LoggerInstance { };
+export interface rsiLoggerInstance extends winston.LoggerInstance { }
 
-const LOGFILE = 'server.log';
+const LOGFILE = "server.log";
 
 export class rsiLogger {
 
@@ -20,12 +20,12 @@ export class rsiLogger {
     return rsiLogger._instance;
   }
 
-  getLogger(name: string): rsiLoggerInstance {
+  public getLogger(name: string): rsiLoggerInstance {
     if (!this._loggers.hasOwnProperty(name)) {
       this._loggers[name] = new (winston.Logger)({
         transports: [
           new (winston.transports.Console)({
-            level: 'error',
+            level: "error",
             colorize: true,
             prettyPrint: true,
             timestamp: true,
@@ -33,7 +33,7 @@ export class rsiLogger {
           }),
           new (winston.transports.File)({
             filename: LOGFILE,
-            level: 'error',
+            level: "error",
             timestamp: true,
             label: name
           })
@@ -43,4 +43,3 @@ export class rsiLogger {
     return this._loggers[name];
   }
 }
-
