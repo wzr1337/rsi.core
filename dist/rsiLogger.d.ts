@@ -1,12 +1,12 @@
 import * as winston from "winston";
-export interface rsiLoggerInstance extends winston.LoggerInstance {
+export interface IRsiLoggerInstance extends winston.LoggerInstance {
 }
-export declare class rsiLogger {
-    private static _instance;
-    _loggers: {
-        [name: string]: rsiLoggerInstance;
+export declare class RsiLogger {
+    static getInstance(): RsiLogger;
+    private static instance;
+    loggers: {
+        [name: string]: IRsiLoggerInstance;
     };
     constructor();
-    static getInstance(): rsiLogger;
-    getLogger(name: string): rsiLoggerInstance;
+    getLogger(name: string): IRsiLoggerInstance;
 }

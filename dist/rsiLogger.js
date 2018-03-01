@@ -1,43 +1,42 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
 var winston = require("winston");
-;
-var LOGFILE = 'server.log';
-var rsiLogger = /** @class */ (function () {
-    function rsiLogger() {
-        this._loggers = {};
-        if (rsiLogger._instance) {
+var LOGFILE = "server.log";
+var RsiLogger = /** @class */ (function () {
+    function RsiLogger() {
+        this.loggers = {};
+        if (RsiLogger.instance) {
             throw new Error("Error: Instantiation failed: Use SingletonClass.getInstance() instead of new.");
         }
-        rsiLogger._instance = this;
+        RsiLogger.instance = this;
     }
-    rsiLogger.getInstance = function () {
-        return rsiLogger._instance;
+    RsiLogger.getInstance = function () {
+        return RsiLogger.instance;
     };
-    rsiLogger.prototype.getLogger = function (name) {
-        if (!this._loggers.hasOwnProperty(name)) {
-            this._loggers[name] = new (winston.Logger)({
+    RsiLogger.prototype.getLogger = function (name) {
+        if (!this.loggers.hasOwnProperty(name)) {
+            this.loggers[name] = new (winston.Logger)({
                 transports: [
                     new (winston.transports.Console)({
-                        level: 'error',
                         colorize: true,
+                        label: name,
+                        level: "error",
                         prettyPrint: true,
-                        timestamp: true,
-                        label: name
+                        timestamp: true
                     }),
                     new (winston.transports.File)({
                         filename: LOGFILE,
-                        level: 'error',
-                        timestamp: true,
-                        label: name
+                        label: name,
+                        level: "error",
+                        timestamp: true
                     })
                 ]
             });
         }
-        return this._loggers[name];
+        return this.loggers[name];
     };
-    rsiLogger._instance = new rsiLogger();
-    return rsiLogger;
+    RsiLogger.instance = new RsiLogger();
+    return RsiLogger;
 }());
-exports.rsiLogger = rsiLogger;
+exports.RsiLogger = RsiLogger;
 //# sourceMappingURL=rsiLogger.js.map
