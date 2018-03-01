@@ -51,7 +51,7 @@ var _1 = require("./");
 var SchemaResource = /** @class */ (function (_super) {
     __extends(SchemaResource, _super);
     function SchemaResource(service, name, rawElements, spec) {
-        var _this = _super.call(this) || this;
+        var _this = _super.call(this, service) || this;
         _this.service = service;
         _this.name = name;
         _this.spec = spec;

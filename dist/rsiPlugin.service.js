@@ -14,14 +14,14 @@ var Service = /** @class */ (function () {
     }
     Object.defineProperty(Service.prototype, "name", {
         /**
-         * Retrieve the service name in all-lower-case
+         * Retrieve the service name including casing
          *
          * @readonly
          * @type {string}
          * @memberof Service
          */
         get: function () {
-            return this.constructor.name.toLowerCase();
+            return this.constructor.name;
         },
         enumerable: true,
         configurable: true

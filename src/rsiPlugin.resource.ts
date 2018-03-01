@@ -1,5 +1,5 @@
 import { BehaviorSubject } from "rxjs";
-import { CollectionResponse, ElementResponse, IResourceUpdate } from "./";
+import { CollectionResponse, ElementResponse, IResourceUpdate, Service } from "./";
 
 export abstract class Resource {
 
@@ -7,6 +7,13 @@ export abstract class Resource {
   public elementSubscribable?: boolean;
   // subscribe /<service>/<resource>/
   public resourceSubscribable?: boolean;
+
+  // tslint:disable-next-line:variable-name
+  protected _change: BehaviorSubject<IResourceUpdate>;
+
+  constructor(protected service: Service) {
+    this._change = new BehaviorSubject({ lastUpdate: Date.now(), action: "init" } as IResourceUpdate);
+  }
 
   /**
    * Retrieve the resource name in all-lower-case
@@ -19,8 +26,6 @@ export abstract class Resource {
     return this.constructor.name.toLowerCase();
   }
 
-  // tslint:disable-next-line:variable-name
-  protected _change: BehaviorSubject<IResourceUpdate>;
   get change(): BehaviorSubject<IResourceUpdate> {
     return this._change;
   }

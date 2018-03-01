@@ -1,4 +1,4 @@
-import { Resource } from "index";
+import { Resource } from "./";
 /**
  * The general service class
  *
@@ -10,7 +10,7 @@ export declare class Service {
     protected knownResources: Resource[];
     protected specification: string;
     /**
-     * Retrieve the service name in all-lower-case
+     * Retrieve the service name including casing
      *
      * @readonly
      * @type {string}

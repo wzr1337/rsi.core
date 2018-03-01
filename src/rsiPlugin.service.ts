@@ -1,4 +1,4 @@
-import { Resource } from "index";
+import { Resource } from "./";
 
 /**
  * The general service class
@@ -7,19 +7,20 @@ import { Resource } from "index";
  * @class Service
  */
 export class Service {
+
   public id: string = "no id set";
   protected knownResources: Resource[] = [];
   protected specification: string = "";
 
   /**
-   * Retrieve the service name in all-lower-case
+   * Retrieve the service name including casing
    *
    * @readonly
    * @type {string}
    * @memberof Service
    */
   get name(): string {
-    return this.constructor.name.toLowerCase();
+    return this.constructor.name;
   }
 
   /**

@@ -5,8 +5,8 @@ import { CollectionResponse, ElementResponse, Resource, Service, StatusCode} fro
 export class SchemaResource extends Resource {
   private elements: Array<BehaviorSubject<any>> = [];
 
-  constructor(private service: Service, public name: string, rawElements: any[], private spec?: any) {
-    super();
+  constructor(protected service: Service, public name: string, rawElements: any[], private spec?: any) {
+    super(service);
     this._change = new BehaviorSubject(null);
     this.elements = rawElements.map((data: any) => {
       return new BehaviorSubject<any>({

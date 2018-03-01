@@ -1,6 +1,6 @@
 import { CollectionResponse, ElementResponse, Resource, Service } from "./";
 export declare class SchemaResource extends Resource {
-    private service;
+    protected service: Service;
     name: string;
     private spec;
     private elements;

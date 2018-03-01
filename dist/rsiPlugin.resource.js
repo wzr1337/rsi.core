@@ -1,7 +1,10 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
+var rxjs_1 = require("rxjs");
 var Resource = /** @class */ (function () {
-    function Resource() {
+    function Resource(service) {
+        this.service = service;
+        this._change = new rxjs_1.BehaviorSubject({ lastUpdate: Date.now(), action: "init" });
     }
     Object.defineProperty(Resource.prototype, "name", {
         /**

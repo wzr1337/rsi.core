@@ -1,8 +1,11 @@
 import { BehaviorSubject } from "rxjs";
-import { CollectionResponse, ElementResponse, IResourceUpdate } from "./";
+import { CollectionResponse, ElementResponse, IResourceUpdate, Service } from "./";
 export declare abstract class Resource {
+    protected service: Service;
     elementSubscribable?: boolean;
     resourceSubscribable?: boolean;
+    protected _change: BehaviorSubject<IResourceUpdate>;
+    constructor(service: Service);
     /**
      * Retrieve the resource name in all-lower-case
      *
@@ -11,7 +14,6 @@ export declare abstract class Resource {
      * @memberof Service
      */
     readonly name: string;
-    protected _change: BehaviorSubject<IResourceUpdate>;
     readonly change: BehaviorSubject<IResourceUpdate>;
     getResource?(offset?: string | number, limit?: string | number): Promise<CollectionResponse>;
     createElement?(state: {}): Promise<ElementResponse>;
