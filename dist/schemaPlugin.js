@@ -114,6 +114,7 @@ var SchemaPlugin = /** @class */ (function (_super) {
                     if (content.resources.hasOwnProperty(resourceDef)) {
                         var data = this_2.data[resourceDef] || [];
                         this_2.updateUris(data);
+                        // tslint:disable-next-line:max-line-length
                         var resource_1 = new _1.SchemaResource(this_2, resourceDef, data, content.resources[resourceDef]);
                         this_2.resourceMap[resourceDef] = resource_1;
                         resource_1.change.subscribe(function () { return __awaiter(_this, void 0, void 0, function () {
