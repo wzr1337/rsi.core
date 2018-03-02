@@ -1,6 +1,6 @@
 {
   "name": "@rsi/core",
-  "version": "0.2.0",
+  "version": "0.2.1",
   "description": "All core functionality for RSI",
   "main": "dist/index.js",
   "types": "dist/index.d.ts",
@@ -9,7 +9,7 @@
     "build": "npm run build:dev",
     "build:dev": "tsc",
     "build:prod": "tsc && npm run lint",
-    "lint": "tslint",
+    "lint": "tslint --project ./tsconfig.json",
     "lint:fix": "tslint --fix --project ./tsconfig.json"
   },
   "author": "",

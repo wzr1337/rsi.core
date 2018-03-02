@@ -56,6 +56,15 @@ var Service = /** @class */ (function () {
     Service.prototype.setSpecification = function (spec) {
         this.specification = spec;
     };
+    /**
+     * Add a resource to the list of known resources
+     *
+     * @param {Resource} resource the resource itself
+     * @memberof Service
+     */
+    Service.prototype.addResource = function (resource) {
+        this.resources.push(resource);
+    };
     return Service;
 }());
 exports.Service = Service;

@@ -35,4 +35,11 @@ export declare class Service {
     getResource(name: string): Resource;
     getSpecification(): string;
     setSpecification(spec: string): void;
+    /**
+     * Add a resource to the list of known resources
+     *
+     * @param {Resource} resource the resource itself
+     * @memberof Service
+     */
+    protected addResource(resource: Resource): void;
 }
