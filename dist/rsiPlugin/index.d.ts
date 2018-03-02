@@ -1,4 +1,6 @@
-import { Service } from "./";
+import { Service } from "./service";
+export { Service } from "./service";
+export { Resource } from "./resource";
 export declare enum StatusCode {
     "OK" = 200,
     "CREATED" = 201,

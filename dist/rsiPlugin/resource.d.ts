@@ -1,5 +1,5 @@
 import { BehaviorSubject } from "rxjs";
-import { CollectionResponse, ElementResponse, IResourceUpdate, Service } from "./";
+import { CollectionResponse, ElementResponse, IResourceUpdate, Service } from "../";
 export declare abstract class Resource {
     protected service: Service;
     elementSubscribable?: boolean;

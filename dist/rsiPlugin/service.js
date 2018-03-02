@@ -68,4 +68,4 @@ var Service = /** @class */ (function () {
     return Service;
 }());
 exports.Service = Service;
-//# sourceMappingURL=rsiPlugin.service.js.map
+//# sourceMappingURL=service.js.map

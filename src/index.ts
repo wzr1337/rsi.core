@@ -1,6 +1,4 @@
-export { IElement, IResourceUpdate, StatusCode } from "./rsiPlugin";
-export { Service } from "./rsiPlugin.service";
-export { Resource } from "./rsiPlugin.resource";
+export { Service, Resource, IElement, IResourceUpdate, StatusCode } from "./rsiPlugin";
 export { Xobject } from "./xObject";
 export { ElementResponse, CollectionResponse, Response } from "./response";
 export { SchemaPlugin } from "./schemaPlugin";

@@ -30,4 +30,4 @@ var Resource = /** @class */ (function () {
     return Resource;
 }());
 exports.Resource = Resource;
-//# sourceMappingURL=rsiPlugin.resource.js.map
+//# sourceMappingURL=resource.js.map
