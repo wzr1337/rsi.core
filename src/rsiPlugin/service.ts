@@ -59,7 +59,7 @@ export class Service {
    * @param {Resource} resource the resource itself
    * @memberof Service
    */
-  protected addResource(resource: Resource): void {
+  public addResource(resource: Resource): void {
     this.resources.push(resource);
   }
 }

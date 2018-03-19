@@ -41,5 +41,5 @@ export declare class Service {
      * @param {Resource} resource the resource itself
      * @memberof Service
      */
-    protected addResource(resource: Resource): void;
+    addResource(resource: Resource): void;
 }
