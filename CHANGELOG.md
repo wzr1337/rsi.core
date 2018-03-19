@@ -1,5 +1,20 @@
+<a name="0.2.2"></a>
+## [0.2.2](https://github.com/wzr1337/rsi.core/compare/0.2.0...v0.2.2) (2018-03-19)
+
+
+### Bug Fixes
+
+* **Service:** mak addResource  a public method to allow adding resources ([1d5ba27](https://github.com/wzr1337/rsi.core/commit/1d5ba27))
+
+
+### Features
+
+* **Service:** add protected method to add resource ([ca16f66](https://github.com/wzr1337/rsi.core/commit/ca16f66))
+
+
+
 <a name="0.2.0"></a>
-# 0.2.0 (2018-03-01)
+# [0.2.0](https://github.com/wzr1337/rsi.core/compare/0c2acdb...0.2.0) (2018-03-01)
 
 
 ### Bug Fixes
