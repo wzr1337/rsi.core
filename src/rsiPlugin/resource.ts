@@ -1,5 +1,5 @@
 import { BehaviorSubject } from "rxjs";
-import { CollectionResponse, ElementResponse, IResourceUpdate, Service } from "../";
+import { CollectionResponse, ElementResponse, IElement, IResourceUpdate , Service} from "../";
 
 export abstract class Resource {
 
@@ -25,7 +25,13 @@ export abstract class Resource {
   get name(): string {
     return this.constructor.name.toLowerCase();
   }
-
+  /**
+   * Listen on this property to get notified on changes at resource level
+   *
+   * @readonly
+   * @type {BehaviorSubject<IResourceUpdate>}
+   * @memberof Resource
+   */
   get change(): BehaviorSubject<IResourceUpdate> {
     return this._change;
   }
@@ -42,4 +48,6 @@ export abstract class Resource {
   public deleteElement?(elementId: string): Promise<ElementResponse>;
   // GET $spec
   public getResourceSpec?(): {};
+
+  abstract get elements(): Array<BehaviorSubject<IElement>>;
 }

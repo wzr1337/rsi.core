@@ -54,7 +54,7 @@ var SchemaPlugin = /** @class */ (function (_super) {
     __extends(SchemaPlugin, _super);
     function SchemaPlugin() {
         var _this = _super.call(this) || this;
-        _this.elements = [];
+        _this.Elements = [];
         _this.elementKeyMap = {};
         _this.model = {};
         _this.schema = {};

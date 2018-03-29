@@ -1,7 +1,7 @@
 import { Service } from "./";
 export declare class SchemaPlugin extends Service {
     name: string;
-    elements: any[];
+    Elements: any[];
     elementKeyMap: any;
     model: any;
     schema: any;
