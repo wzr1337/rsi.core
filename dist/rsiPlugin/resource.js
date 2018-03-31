@@ -87,32 +87,35 @@ var Resource = /** @class */ (function () {
      * Remove an element from the resource
      *
      * @param {string} elementId id of the element to be removed
+     * @returns {boolean} success of removal
      * @memberof Resource
      */
     Resource.prototype.removeElement = function (elementId) {
+        var origLen = this.elements.length;
         this.elements = this.elements.filter(function (element) {
             return element.getValue().data.id !== elementId;
         });
-        this._change.next({ lastUpdate: Date.now(), action: "remove" });
+        if (this.elements.length < origLen) {
+            /** publish a resource change */
+            this._change.next({ lastUpdate: Date.now(), action: "remove" });
+            return true;
+        }
+        else {
+            return false;
+        }
     };
     /**
      * This method adds elements to the resource
      *
-     * @param {XObject} data the object to be added
+     * @param {BehaviorSubject<IElement>} element to be added
      * @returns {XObject} the completed object added to the resource
      * @memberof Resource
      */
-    Resource.prototype.addElement = function (data) {
+    Resource.prototype.addElement = function (element) {
         // tslint:disable-next-line:max-line-length
-        var newElementObject = Object.assign(data, { uri: "/" + this.service.name + "/" + this.name + "/" + data.id });
-        this.elements.push(new rxjs_1.BehaviorSubject({
-            data: newElementObject,
-            lastUpdate: Date.now(),
-            propertiesChanged: []
-        }));
+        this.elements.push(element);
         /** publish a resource change */
         this._change.next({ lastUpdate: Date.now(), action: "add" });
-        return newElementObject;
     };
     return Resource;
 }());

@@ -62,32 +62,34 @@ export abstract class Resource {
    * Remove an element from the resource
    *
    * @param {string} elementId id of the element to be removed
+   * @returns {boolean} success of removal
    * @memberof Resource
    */
-  public removeElement(elementId: string) {
+  public removeElement(elementId: string): boolean {
+    const origLen = this.elements.length;
     this.elements = this.elements.filter((element: BehaviorSubject<IElement>) => {
       return (element.getValue().data as { id: string }).id !== elementId;
     });
-    this._change.next({ lastUpdate: Date.now(), action: "remove" } as IResourceUpdate);
+    if (this.elements.length < origLen) {
+      /** publish a resource change */
+      this._change.next({ lastUpdate: Date.now(), action: "remove" } as IResourceUpdate);
+      return true;
+    } else {
+      return false;
+    }
   }
 
   /**
    * This method adds elements to the resource
    *
-   * @param {XObject} data the object to be added
+   * @param {BehaviorSubject<IElement>} element to be added
    * @returns {XObject} the completed object added to the resource
    * @memberof Resource
    */
-  public addElement(data: XObject): XObject {
+  public addElement(element: BehaviorSubject<IElement>) {
     // tslint:disable-next-line:max-line-length
-    const newElementObject: XObject = Object.assign(data, { uri: "/" + this.service.name + "/" + this.name + "/" + data.id});
-    this.elements.push(new BehaviorSubject<IElement>({
-      data: newElementObject,
-      lastUpdate: Date.now(),
-      propertiesChanged: []
-    }));
+    this.elements.push(element);
     /** publish a resource change */
     this._change.next({ lastUpdate: Date.now(), action: "add" } as IResourceUpdate);
-    return newElementObject;
   }
 }
