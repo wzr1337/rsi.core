@@ -9,7 +9,7 @@ Object.defineProperty(exports, "__esModule", { value: true });
 var Service = /** @class */ (function () {
     function Service() {
         this.id = "no id set";
-        this.knownResources = [];
+        this.resources = [];
         this.specification = "";
     }
     Object.defineProperty(Service.prototype, "name", {
@@ -22,20 +22,6 @@ var Service = /** @class */ (function () {
          */
         get: function () {
             return this.constructor.name;
-        },
-        enumerable: true,
-        configurable: true
-    });
-    Object.defineProperty(Service.prototype, "resources", {
-        /**
-         * Get a list of resources providesd by the service
-         *
-         * @readonly
-         * @type {Resource[]} the rescoures provided by the service
-         * @memberof Service
-         */
-        get: function () {
-            return this.knownResources;
         },
         enumerable: true,
         configurable: true
