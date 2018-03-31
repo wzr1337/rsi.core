@@ -69,6 +69,21 @@ var Resource = /** @class */ (function () {
         enumerable: true,
         configurable: true
     });
+    // GET /<service>/<resource>/
+    Resource.prototype.getResource = function (offset, limit) {
+        return __awaiter(this, void 0, void 0, function () {
+            var resp;
+            return __generator(this, function (_a) {
+                if ((typeof offset === "number" && typeof limit === "number") ||
+                    (typeof limit === "number" && !offset) ||
+                    (typeof offset === "number" && !limit) ||
+                    (!offset && !limit)) {
+                    resp = this.elements.slice(offset, limit);
+                }
+                return [2 /*return*/, { status: "ok", data: resp }];
+            });
+        });
+    };
     // GET /<service>/<resource>/<element>
     Resource.prototype.getElement = function (elementId) {
         return __awaiter(this, void 0, void 0, function () {

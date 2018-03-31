@@ -38,7 +38,24 @@ export abstract class Resource {
   }
 
   // GET /<service>/<resource>/
-  public abstract getResource?(offset?: string | number, limit?: string | number): Promise<CollectionResponse>;
+  public async getResource(
+    offset?: string | number,
+    limit?: string | number
+  ): Promise<CollectionResponse> {
+    // retriev all element
+    let resp: Array<BehaviorSubject<IElement>>;
+
+    if (
+      (typeof offset === "number" && typeof limit === "number") ||
+      (typeof limit === "number" && !offset) ||
+      (typeof offset === "number" && !limit) ||
+      (!offset && !limit)
+    ) {
+      resp = this.elements.slice(offset as number, limit as number);
+    }
+    return { status: "ok", data: resp };
+  }
+
   // POST /<service>/<resource>/
   public createElement?(state: {}): Promise<ElementResponse>;
   // GET /<service>/<resource>/<element>

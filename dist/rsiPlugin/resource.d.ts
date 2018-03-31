@@ -23,7 +23,7 @@ export declare abstract class Resource {
      * @memberof Resource
      */
     readonly change: BehaviorSubject<IResourceUpdate>;
-    abstract getResource?(offset?: string | number, limit?: string | number): Promise<CollectionResponse>;
+    getResource(offset?: string | number, limit?: string | number): Promise<CollectionResponse>;
     createElement?(state: {}): Promise<ElementResponse>;
     getElement(elementId: string): Promise<ElementResponse>;
     updateElement?(elementId: string, difference: any): Promise<ElementResponse>;
