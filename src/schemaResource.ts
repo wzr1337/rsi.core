@@ -3,7 +3,7 @@ import { v4 } from "uuid";
 import { CollectionResponse, ElementResponse, Resource, Service, StatusCode} from "./";
 
 export class SchemaResource extends Resource {
-  private elements: Array<BehaviorSubject<any>> = [];
+  public readonly elements: Array<BehaviorSubject<any>> = [];
 
   constructor(protected service: Service, public name: string, rawElements: any[], private spec?: any) {
     super(service);

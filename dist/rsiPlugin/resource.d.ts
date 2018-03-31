@@ -1,5 +1,5 @@
 import { BehaviorSubject } from "rxjs";
-import { CollectionResponse, ElementResponse, IResourceUpdate, Service } from "../";
+import { CollectionResponse, ElementResponse, IElement, IResourceUpdate, Service } from "../";
 export declare abstract class Resource {
     protected service: Service;
     elementSubscribable?: boolean;
@@ -14,6 +14,13 @@ export declare abstract class Resource {
      * @memberof Service
      */
     readonly name: string;
+    /**
+     * Listen on this property to get notified on changes at resource level
+     *
+     * @readonly
+     * @type {BehaviorSubject<IResourceUpdate>}
+     * @memberof Resource
+     */
     readonly change: BehaviorSubject<IResourceUpdate>;
     getResource?(offset?: string | number, limit?: string | number): Promise<CollectionResponse>;
     createElement?(state: {}): Promise<ElementResponse>;
@@ -21,4 +28,5 @@ export declare abstract class Resource {
     updateElement?(elementId: string, difference: any): Promise<ElementResponse>;
     deleteElement?(elementId: string): Promise<ElementResponse>;
     getResourceSpec?(): {};
+    readonly abstract elements: Array<BehaviorSubject<IElement>>;
 }

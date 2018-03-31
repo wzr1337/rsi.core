@@ -9,7 +9,7 @@ import { CollectionResponse, ElementResponse, IResourceUpdate, Resource, SchemaR
 
 export class SchemaPlugin extends Service {
   public name: string;
-  public elements: any[] = [];
+  public Elements: any[] = [];
   public elementKeyMap: any = {};
   public model: any = {};
   public schema: any = {};

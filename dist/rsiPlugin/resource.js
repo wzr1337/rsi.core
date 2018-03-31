@@ -21,6 +21,13 @@ var Resource = /** @class */ (function () {
         configurable: true
     });
     Object.defineProperty(Resource.prototype, "change", {
+        /**
+         * Listen on this property to get notified on changes at resource level
+         *
+         * @readonly
+         * @type {BehaviorSubject<IResourceUpdate>}
+         * @memberof Resource
+         */
         get: function () {
             return this._change;
         },

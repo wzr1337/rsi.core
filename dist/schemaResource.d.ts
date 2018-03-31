@@ -1,9 +1,10 @@
+import { BehaviorSubject } from "rxjs";
 import { CollectionResponse, ElementResponse, Resource, Service } from "./";
 export declare class SchemaResource extends Resource {
     protected service: Service;
     name: string;
     private spec;
-    private elements;
+    readonly elements: Array<BehaviorSubject<any>>;
     constructor(service: Service, name: string, rawElements: any[], spec?: any);
     readonly elementSubscribable: boolean;
     readonly resourceSubscribable: boolean;

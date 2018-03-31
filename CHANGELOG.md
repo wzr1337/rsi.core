@@ -1,5 +1,15 @@
+<a name="0.2.3"></a>
+## [0.2.3](https://github.com/wzr1337/rsi.core/compare/0.2.2...v0.2.3) (2018-03-31)
+
+
+### Features
+
+* **Resource:** add abstract accessor for elements ([568cd5e](https://github.com/wzr1337/rsi.core/commit/568cd5e))
+
+
+
 <a name="0.2.2"></a>
-## [0.2.2](https://github.com/wzr1337/rsi.core/compare/0.2.0...v0.2.2) (2018-03-19)
+## [0.2.2](https://github.com/wzr1337/rsi.core/compare/0.2.0...0.2.2) (2018-03-19)
 
 
 ### Bug Fixes
