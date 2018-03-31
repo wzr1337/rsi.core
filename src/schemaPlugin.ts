@@ -1,9 +1,6 @@
-import fs = require("fs");
-import { existsSync, readFileSync } from "fs";
-import path = require("path");
+import { existsSync, readFileSync, writeFileSync } from "fs";
 import { join } from "path";
 import { BehaviorSubject } from "rxjs";
-import * as uuid from "uuid";
 import { CollectionResponse, ElementResponse, IResourceUpdate, Resource, SchemaResource,
   Service, StatusCode } from "./";
 
@@ -35,16 +32,16 @@ export class SchemaPlugin extends Service {
   }
 
   public readData() {
-    if (existsSync(join(this.pluginDir, "data.json"))) {
-      const dataPath: string = join(this.pluginDir, "data.json");
-      const d: string = fs.readFileSync(dataPath, "utf-8") as string;
+    const dataPath: string = join(this.pluginDir, "data.json");
+    if (existsSync(dataPath)) {
+      const d: string = readFileSync(dataPath, "utf-8") as string;
       try {
         this.data = JSON.parse(d);
       } catch (e) {
         console.log("Error parsing data for schema plugin ", this.name);
       }
     } else {
-      console.log("DATA NOT FOUND ", join(this.pluginDir, "data.json"));
+      console.log("DATA NOT FOUND ", dataPath);
     }
   }
 
@@ -87,17 +84,17 @@ export class SchemaPlugin extends Service {
                 return value.getValue().data;
               });
               this.data[resource.name] = rawData;
-              let srcPath = path.join(this.pluginDir, "data.json");
+              let srcPath = join(this.pluginDir, "data.json");
               srcPath = srcPath.replace("bin", "src");
               try {
-                fs.writeFileSync(srcPath, JSON.stringify(this.data, null, 4), {
+                writeFileSync(srcPath, JSON.stringify(this.data, null, 4), {
                   encoding: "utf-8"
                 }); // persist data also to src path otherwise it will be lost with each rebuild
               } catch (d) {
                 console.log("Error writing data file src ", d);
               }
               try {
-                fs.writeFileSync(path.join(__dirname, this.name, "data.json"), JSON.stringify(this.data, null, 4), {
+                writeFileSync(join(__dirname, this.name, "data.json"), JSON.stringify(this.data, null, 4), {
                   encoding: "utf-8"
                 });
 
@@ -114,16 +111,16 @@ export class SchemaPlugin extends Service {
         console.log(e);
       }
     } else {
-      console.log("Schema not found ", join(this.pluginDir, "schema.json"));
+      console.log("Schema not found ", schemaPath);
     }
   }
 
   public updateUris(data: any) {
     const clone = data;
     /* TODO: Set absolute uris
-     if (data && data.hasOwnProperty('id') && this.elementKeyMap[data.id]) {
-     data.uri = 'http://localhost:3000/' + this.name + '/' + this.elementKeyMap[data.id].resource + '/' + data.id;
-     }
+      if (data && data.hasOwnProperty('id') && this.elementKeyMap[data.id]) {
+      data.uri = 'http://localhost:3000/' + this.name + '/' + this.elementKeyMap[data.id].resource + '/' + data.id;
+      }
      */
     for (const i in clone) {
       if (typeof clone[i] === "object") {

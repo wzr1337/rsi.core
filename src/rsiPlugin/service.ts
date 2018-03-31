@@ -9,7 +9,7 @@ import { Resource } from "../";
 export class Service {
 
   public id: string = "no id set";
-  protected knownResources: Resource[] = [];
+  public readonly resources: Resource[] = [];
   protected specification: string = "";
 
   /**
@@ -21,17 +21,6 @@ export class Service {
    */
   get name(): string {
     return this.constructor.name;
-  }
-
-  /**
-   * Get a list of resources providesd by the service
-   *
-   * @readonly
-   * @type {Resource[]} the rescoures provided by the service
-   * @memberof Service
-   */
-  get resources(): Resource[] {
-    return this.knownResources;
   }
 
   /**

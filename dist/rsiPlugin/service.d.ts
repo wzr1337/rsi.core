@@ -7,7 +7,7 @@ import { Resource } from "../";
  */
 export declare class Service {
     id: string;
-    protected knownResources: Resource[];
+    readonly resources: Resource[];
     protected specification: string;
     /**
      * Retrieve the service name including casing
@@ -17,14 +17,6 @@ export declare class Service {
      * @memberof Service
      */
     readonly name: string;
-    /**
-     * Get a list of resources providesd by the service
-     *
-     * @readonly
-     * @type {Resource[]} the rescoures provided by the service
-     * @memberof Service
-     */
-    readonly resources: Resource[];
     /**
      * Get a dedicates of resource by name
      *

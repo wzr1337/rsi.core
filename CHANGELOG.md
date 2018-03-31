@@ -1,10 +1,18 @@
-<a name="0.2.3"></a>
-## [0.2.3](https://github.com/wzr1337/rsi.core/compare/0.2.2...v0.2.3) (2018-03-31)
+<a name="0.2.4"></a>
+## [0.2.4](https://github.com/wzr1337/rsi.core/compare/0.2.3...v0.2.4) (2018-03-31)
+
+
+### Bug Fixes
+
+* **Resource:** initialize elements array ([dd4f984](https://github.com/wzr1337/rsi.core/commit/dd4f984))
+* **resource.addElement:** accept BehaviorSubject<IElement> instead of ony data ([af88fe4](https://github.com/wzr1337/rsi.core/commit/af88fe4))
 
 
 ### Features
 
+* **resource:** new methods removeElement() and addElement() ([9666c68](https://github.com/wzr1337/rsi.core/commit/9666c68))
 * **Resource:** add abstract accessor for elements ([568cd5e](https://github.com/wzr1337/rsi.core/commit/568cd5e))
+* **resource.getResource:** add default implementation ([12a0caa](https://github.com/wzr1337/rsi.core/commit/12a0caa))
 
 
 

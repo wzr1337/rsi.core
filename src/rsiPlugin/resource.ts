@@ -1,7 +1,8 @@
 import { BehaviorSubject } from "rxjs";
-import { CollectionResponse, ElementResponse, IElement, IResourceUpdate , Service} from "../";
+import { CollectionResponse, ElementResponse, IElement, IResourceUpdate, Service, XObject } from "../";
 
 export abstract class Resource {
+  public elements: Array<BehaviorSubject<IElement>> = [];
 
   // subscribe /<service>/<resource>/<element>
   public elementSubscribable?: boolean;
@@ -37,11 +38,36 @@ export abstract class Resource {
   }
 
   // GET /<service>/<resource>/
-  public getResource?(offset?: string | number, limit?: string | number): Promise<CollectionResponse>;
+  public async getResource(
+    offset?: string | number,
+    limit?: string | number
+  ): Promise<CollectionResponse> {
+    // retriev all element
+    let resp: Array<BehaviorSubject<IElement>>;
+
+    if (
+      (typeof offset === "number" && typeof limit === "number") ||
+      (typeof limit === "number" && !offset) ||
+      (typeof offset === "number" && !limit) ||
+      (!offset && !limit)
+    ) {
+      resp = this.elements.slice(offset as number, limit as number);
+    }
+    return { status: "ok", data: resp };
+  }
+
   // POST /<service>/<resource>/
   public createElement?(state: {}): Promise<ElementResponse>;
   // GET /<service>/<resource>/<element>
-  public abstract getElement(elementId: string): Promise<ElementResponse>;
+  public async getElement(elementId: string): Promise<ElementResponse> {
+    // find the element requested by the client
+    return {
+      data: this.elements.find((element: BehaviorSubject<IElement>) => {
+        return (element.getValue().data as { id: string }).id === elementId;
+      }),
+      status: "ok"
+    };
+  }
   // POST /<service>/<resource>/<element>
   public updateElement?(elementId: string, difference: any): Promise<ElementResponse>;
   // DELETE /<service>/<resource>/<element>
@@ -49,5 +75,37 @@ export abstract class Resource {
   // GET $spec
   public getResourceSpec?(): {};
 
-  abstract get elements(): Array<BehaviorSubject<IElement>>;
+  /**
+   * Remove an element from the resource
+   *
+   * @param {string} elementId id of the element to be removed
+   * @returns {boolean} success of removal
+   * @memberof Resource
+   */
+  public removeElement(elementId: string): boolean {
+    const origLen = this.elements.length;
+    this.elements = this.elements.filter((element: BehaviorSubject<IElement>) => {
+      return (element.getValue().data as { id: string }).id !== elementId;
+    });
+    if (this.elements.length < origLen) {
+      /** publish a resource change */
+      this._change.next({ lastUpdate: Date.now(), action: "remove" } as IResourceUpdate);
+      return true;
+    } else {
+      return false;
+    }
+  }
+
+  /**
+   * This method adds elements to the resource
+   *
+   * @param {BehaviorSubject<IElement>} element to be added
+   * @returns {XObject} the completed object added to the resource
+   * @memberof Resource
+   */
+  public addElement(element: BehaviorSubject<IElement>) {
+    this.elements.push(element);
+    /** publish a resource change */
+    this._change.next({ lastUpdate: Date.now(), action: "add" } as IResourceUpdate);
+  }
 }
