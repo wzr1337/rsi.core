@@ -2,7 +2,7 @@ import { BehaviorSubject } from "rxjs";
 import { CollectionResponse, ElementResponse, IElement, IResourceUpdate, Service, XObject } from "../";
 
 export abstract class Resource {
-  public elements: Array<BehaviorSubject<IElement>>;
+  public elements: Array<BehaviorSubject<IElement>> = [];
 
   // subscribe /<service>/<resource>/<element>
   public elementSubscribable?: boolean;
@@ -104,7 +104,6 @@ export abstract class Resource {
    * @memberof Resource
    */
   public addElement(element: BehaviorSubject<IElement>) {
-    // tslint:disable-next-line:max-line-length
     this.elements.push(element);
     /** publish a resource change */
     this._change.next({ lastUpdate: Date.now(), action: "add" } as IResourceUpdate);

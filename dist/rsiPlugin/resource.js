@@ -39,6 +39,7 @@ var rxjs_1 = require("rxjs");
 var Resource = /** @class */ (function () {
     function Resource(service) {
         this.service = service;
+        this.elements = [];
         this._change = new rxjs_1.BehaviorSubject({ lastUpdate: Date.now(), action: "init" });
     }
     Object.defineProperty(Resource.prototype, "name", {
@@ -127,7 +128,6 @@ var Resource = /** @class */ (function () {
      * @memberof Resource
      */
     Resource.prototype.addElement = function (element) {
-        // tslint:disable-next-line:max-line-length
         this.elements.push(element);
         /** publish a resource change */
         this._change.next({ lastUpdate: Date.now(), action: "add" });
