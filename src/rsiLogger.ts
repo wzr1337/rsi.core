@@ -21,27 +21,36 @@ export class RsiLogger {
     }
     RsiLogger.instance = this;
   }
-
-  public getLogger(name: string): IRsiLoggerInstance {
-    if (!this.loggers.hasOwnProperty(name)) {
-      this.loggers[name] = new (winston.Logger)({
+/**
+ * get a logger
+ *
+ * @param {string} label the loggers name
+ * @param {string} [level="error"] the log level, defaults to "error"
+ * @returns {IRsiLoggerInstance} an instance of a logger
+ * @memberof RsiLogger
+ */
+  // tslint:disable-next-line:max-line-length
+  public getLogger(label: string, level: "error"|"warn"|"info"|"verbose"|"debug"|"silly" = "error"): IRsiLoggerInstance {
+  if (!this.loggers.hasOwnProperty(label)) {
+      this.loggers[label] = new (winston.Logger)({
         transports: [
           new (winston.transports.Console)({
             colorize: true,
-            label: name,
-            level: "error",
+            label,
+            level,
             prettyPrint: true,
             timestamp: true
           }),
           new (winston.transports.File)({
             filename: LOGFILE,
-            label: name,
-            level: "error",
+            label,
+            level,
             timestamp: true
           })
         ]
       });
     }
-    return this.loggers[name];
+  return this.loggers[label];
   }
+
 }

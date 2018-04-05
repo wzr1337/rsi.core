@@ -124,7 +124,6 @@ var Resource = /** @class */ (function () {
      * This method adds elements to the resource
      *
      * @param {BehaviorSubject<IElement>} element to be added
-     * @returns {XObject} the completed object added to the resource
      * @memberof Resource
      */
     Resource.prototype.addElement = function (element) {

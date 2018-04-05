@@ -41,7 +41,6 @@ export declare abstract class Resource {
      * This method adds elements to the resource
      *
      * @param {BehaviorSubject<IElement>} element to be added
-     * @returns {XObject} the completed object added to the resource
      * @memberof Resource
      */
     addElement(element: BehaviorSubject<IElement>): void;

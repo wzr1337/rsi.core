@@ -45,9 +45,7 @@ var __generator = (this && this.__generator) || function (thisArg, body) {
     }
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-var fs = require("fs");
 var fs_1 = require("fs");
-var path = require("path");
 var path_1 = require("path");
 var _1 = require("./");
 var SchemaPlugin = /** @class */ (function (_super) {
@@ -71,9 +69,9 @@ var SchemaPlugin = /** @class */ (function (_super) {
     SchemaPlugin.prototype.onReady = function () {
     };
     SchemaPlugin.prototype.readData = function () {
-        if (fs_1.existsSync(path_1.join(this.pluginDir, "data.json"))) {
-            var dataPath = path_1.join(this.pluginDir, "data.json");
-            var d = fs.readFileSync(dataPath, "utf-8");
+        var dataPath = path_1.join(this.pluginDir, "data.json");
+        if (fs_1.existsSync(dataPath)) {
+            var d = fs_1.readFileSync(dataPath, "utf-8");
             try {
                 this.data = JSON.parse(d);
             }
@@ -82,7 +80,7 @@ var SchemaPlugin = /** @class */ (function (_super) {
             }
         }
         else {
-            console.log("DATA NOT FOUND ", path_1.join(this.pluginDir, "data.json"));
+            console.log("DATA NOT FOUND ", dataPath);
         }
     };
     SchemaPlugin.prototype.readSchema = function () {
@@ -128,10 +126,10 @@ var SchemaPlugin = /** @class */ (function (_super) {
                                             return value.getValue().data;
                                         });
                                         this.data[resource_1.name] = rawData;
-                                        srcPath = path.join(this.pluginDir, "data.json");
+                                        srcPath = path_1.join(this.pluginDir, "data.json");
                                         srcPath = srcPath.replace("bin", "src");
                                         try {
-                                            fs.writeFileSync(srcPath, JSON.stringify(this.data, null, 4), {
+                                            fs_1.writeFileSync(srcPath, JSON.stringify(this.data, null, 4), {
                                                 encoding: "utf-8"
                                             }); // persist data also to src path otherwise it will be lost with each rebuild
                                         }
@@ -139,7 +137,7 @@ var SchemaPlugin = /** @class */ (function (_super) {
                                             console.log("Error writing data file src ", d);
                                         }
                                         try {
-                                            fs.writeFileSync(path.join(__dirname, this.name, "data.json"), JSON.stringify(this.data, null, 4), {
+                                            fs_1.writeFileSync(path_1.join(__dirname, this.name, "data.json"), JSON.stringify(this.data, null, 4), {
                                                 encoding: "utf-8"
                                             });
                                         }
@@ -164,15 +162,15 @@ var SchemaPlugin = /** @class */ (function (_super) {
             }
         }
         else {
-            console.log("Schema not found ", path_1.join(this.pluginDir, "schema.json"));
+            console.log("Schema not found ", schemaPath);
         }
     };
     SchemaPlugin.prototype.updateUris = function (data) {
         var clone = data;
         /* TODO: Set absolute uris
-         if (data && data.hasOwnProperty('id') && this.elementKeyMap[data.id]) {
-         data.uri = 'http://localhost:3000/' + this.name + '/' + this.elementKeyMap[data.id].resource + '/' + data.id;
-         }
+          if (data && data.hasOwnProperty('id') && this.elementKeyMap[data.id]) {
+          data.uri = 'http://localhost:3000/' + this.name + '/' + this.elementKeyMap[data.id].resource + '/' + data.id;
+          }
          */
         for (var i in clone) {
             if (typeof clone[i] === "object") {

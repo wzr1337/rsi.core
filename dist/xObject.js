@@ -16,4 +16,4 @@ var XObject = /** @class */ (function () {
     return XObject;
 }());
 exports.XObject = XObject;
-//# sourceMappingURL=xObject.js.map
+//# sourceMappingURL=xobject.js.map
