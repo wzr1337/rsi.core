@@ -1,5 +1,5 @@
-<a name="0.2.4"></a>
-## [0.2.4](https://github.com/wzr1337/rsi.core/compare/0.2.3...v0.2.4) (2018-03-31)
+<a name="0.2.5"></a>
+## [0.2.5](https://github.com/wzr1337/rsi.core/compare/0.2.4...v0.2.5) (2018-04-05)
 
 
 ### Bug Fixes
@@ -10,6 +10,7 @@
 
 ### Features
 
+* **logger:** allow providing a log level on getting a logger ([266b7e3](https://github.com/wzr1337/rsi.core/commit/266b7e3))
 * **resource:** new methods removeElement() and addElement() ([9666c68](https://github.com/wzr1337/rsi.core/commit/9666c68))
 * **Resource:** add abstract accessor for elements ([568cd5e](https://github.com/wzr1337/rsi.core/commit/568cd5e))
 * **resource.getResource:** add default implementation ([12a0caa](https://github.com/wzr1337/rsi.core/commit/12a0caa))
