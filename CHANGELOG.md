@@ -1,5 +1,26 @@
+<a name="0.2.7"></a>
+## [0.2.7](https://github.com/wzr1337/rsi.core/compare/0.2.6...v0.2.7) (2018-04-18)
+
+
+### Features
+
+* **singleton:** use singleton pattern ([aee8baa](https://github.com/wzr1337/rsi.core/commit/aee8baa))
+* **singleton:** use singleton pattern ([bd43a2b](https://github.com/wzr1337/rsi.core/commit/bd43a2b))
+
+
+
+<a name="0.2.6"></a>
+## [0.2.6](https://github.com/wzr1337/rsi.core/compare/0.2.5...0.2.6) (2018-04-05)
+
+
+### Bug Fixes
+
+* **module:** use lower case file name ([1a32926](https://github.com/wzr1337/rsi.core/commit/1a32926))
+
+
+
 <a name="0.2.5"></a>
-## [0.2.5](https://github.com/wzr1337/rsi.core/compare/0.2.4...v0.2.5) (2018-04-05)
+## [0.2.5](https://github.com/wzr1337/rsi.core/compare/0.2.4...0.2.5) (2018-04-05)
 
 
 ### Bug Fixes
