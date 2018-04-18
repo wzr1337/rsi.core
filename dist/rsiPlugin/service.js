@@ -12,6 +12,9 @@ var Service = /** @class */ (function () {
         this.resources = [];
         this.specification = "";
     }
+    Service.getInstance = function () {
+        return this.instance || (this.instance = new this());
+    };
     Object.defineProperty(Service.prototype, "name", {
         /**
          * Retrieve the service name including casing
