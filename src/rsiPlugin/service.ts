@@ -8,9 +8,18 @@ import { Resource } from "../";
  */
 export class Service {
 
+  private static instance: Service;
   public id: string = "no id set";
   public readonly resources: Resource[] = [];
   protected specification: string = "";
+  
+  private constructor() {
+  
+  }
+
+  public static getInstance(): Service {
+    return this.instance || (this.instance = new this());
+  }
 
   /**
    * Retrieve the service name including casing
