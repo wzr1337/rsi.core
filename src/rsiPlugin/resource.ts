@@ -24,7 +24,7 @@ export abstract class Resource {
    * @memberof Service
    */
   get name(): string {
-    return this.constructor.name.toLowerCase();
+    return this.constructor.name;
   }
   /**
    * Listen on this property to get notified on changes at resource level
