@@ -8,17 +8,17 @@ import { Resource } from "../";
  */
 export class Service {
 
+  public static getInstance(): Service {
+    return this.instance || (this.instance = new this());
+  }
+
   private static instance: Service;
   public id: string = "no id set";
   public readonly resources: Resource[] = [];
   protected specification: string = "";
-  
-  private constructor() {
-  
-  }
 
-  public static getInstance(): Service {
-    return this.instance || (this.instance = new this());
+  protected constructor() {
+
   }
 
   /**
