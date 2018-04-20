@@ -1,5 +1,5 @@
 <a name="0.2.7"></a>
-## [0.2.7](https://github.com/wzr1337/rsi.core/compare/0.2.6...v0.2.7) (2018-04-18)
+## [0.2.7](https://github.com/wzr1337/rsi.core/compare/0.2.6...0.2.7) (2018-04-18)
 
 
 ### Features
