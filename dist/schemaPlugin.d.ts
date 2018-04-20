@@ -8,7 +8,7 @@ export declare class SchemaPlugin extends Service {
     data: any;
     resourceMap: any;
     pluginDir: string;
-    constructor();
+    protected constructor();
     init(): void;
     onReady(): void;
     readData(): void;

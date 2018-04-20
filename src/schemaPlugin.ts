@@ -15,9 +15,8 @@ export class SchemaPlugin extends Service {
 
   public pluginDir: string;
 
-  constructor() {
+  protected constructor() {
     super();
-
   }
 
   public init() {

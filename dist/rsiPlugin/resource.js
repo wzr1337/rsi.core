@@ -51,7 +51,7 @@ var Resource = /** @class */ (function () {
          * @memberof Service
          */
         get: function () {
-            return this.constructor.name.toLowerCase();
+            return this.constructor.name;
         },
         enumerable: true,
         configurable: true

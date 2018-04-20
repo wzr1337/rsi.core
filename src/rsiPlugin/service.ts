@@ -18,7 +18,6 @@ export class Service {
   protected specification: string = "";
 
   protected constructor() {
-
   }
 
   /**
