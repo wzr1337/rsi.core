@@ -1,5 +1,11 @@
 <a name="0.2.7"></a>
-## [0.2.7](https://github.com/wzr1337/rsi.core/compare/0.2.6...0.2.7) (2018-04-18)
+## [0.2.7](https://github.com/wzr1337/rsi.core/compare/0.2.6...0.2.7) (2018-04-20)
+
+
+### Bug Fixes
+
+* **general:** re-build all lower case xobject ([73ca7bd](https://github.com/wzr1337/rsi.core/commit/73ca7bd))
+* **resource.name:** return actual casing of class name ([0f3ecce](https://github.com/wzr1337/rsi.core/commit/0f3ecce))
 
 
 ### Features
