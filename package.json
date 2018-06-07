@@ -1,6 +1,6 @@
 {
   "name": "@rsi/core",
-  "version": "0.2.7",
+  "version": "0.2.8",
   "description": "All core functionality for RSI",
   "main": "dist/index.js",
   "types": "dist/index.d.ts",

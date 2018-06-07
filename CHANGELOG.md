@@ -1,9 +1,26 @@
+<a name="0.2.8"></a>
+## [0.2.8](https://github.com/wzr1337/rsi.core/compare/0.2.7...0.2.8) (2018-06-07)
+
+
+### Bug Fixes
+
+* **build-prod:** run lint before tsc ([7f7544d](https://github.com/wzr1337/rsi.core/commit/7f7544d))
+* **npm-new-line:** ensure new line at eof in package.json after npm i ([a09e47e](https://github.com/wzr1337/rsi.core/commit/a09e47e))
+
+
+### Features
+
+* **release-management:** generate changelog when running npm version ([00bae0e](https://github.com/wzr1337/rsi.core/commit/00bae0e))
+
+
+
 <a name="0.2.7"></a>
 ## [0.2.7](https://github.com/wzr1337/rsi.core/compare/0.2.6...0.2.7) (2018-04-20)
 
 
 ### Bug Fixes
 
+* **dist:** casing of xobject ([f07699a](https://github.com/wzr1337/rsi.core/commit/f07699a))
 * **general:** re-build all lower case xobject ([73ca7bd](https://github.com/wzr1337/rsi.core/commit/73ca7bd))
 * **resource.name:** return actual casing of class name ([0f3ecce](https://github.com/wzr1337/rsi.core/commit/0f3ecce))
 
