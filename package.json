@@ -8,7 +8,7 @@
     "test": "echo \"Error: no test specified\" && exit 1",
     "build": "npm run build:dev",
     "build:dev": "tsc",
-    "build:prod": "tsc && npm run lint",
+    "build:prod": "npm run lint && tsc",
     "lint": "tslint --project ./tsconfig.json",
     "lint:fix": "tslint --fix --project ./tsconfig.json"
   },
