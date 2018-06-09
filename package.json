@@ -5,7 +5,9 @@
   "main": "dist/index.js",
   "types": "dist/index.d.ts",
   "scripts": {
-    "test": "jasmine",
+    "test": "npm run build && npm run test:only",
+    "test:only": "jasmine",
+    "test:prod": "npm run build:prod && npm run test:only",
     "build": "npm run build:dev",
     "build:dev": "tsc",
     "build:prod": "npm run lint && tsc",
