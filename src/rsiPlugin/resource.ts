@@ -1,5 +1,5 @@
 import { BehaviorSubject } from "rxjs";
-import { CollectionResponse, ElementResponse, IElement, IResourceUpdate, Service, XObject } from "../";
+import { CollectionResponse, ElementResponse, IElement, IResourceUpdate, Service } from "../";
 
 export abstract class Resource {
   public elements: Array<BehaviorSubject<IElement>> = [];

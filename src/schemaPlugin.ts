@@ -1,8 +1,7 @@
 import { existsSync, readFileSync, writeFileSync } from "fs";
 import { join } from "path";
 import { BehaviorSubject } from "rxjs";
-import { CollectionResponse, ElementResponse, IResourceUpdate, Resource, SchemaResource,
-  Service, StatusCode } from "./";
+import { CollectionResponse, SchemaResource, Service } from "./";
 
 export class SchemaPlugin extends Service {
   public name: string;
@@ -60,7 +59,7 @@ export class SchemaPlugin extends Service {
             const data: any = this.data[resourceDef] || [];
 
             if (Array.isArray(this.data[resourceDef])) {
-              this.data[resourceDef].forEach((x: any) => {
+              data[resourceDef].forEach((x: any) => {
                 this.elementKeyMap[x.id] = {
                   element: x,
                   resource: resourceDef

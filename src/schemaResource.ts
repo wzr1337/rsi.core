@@ -133,7 +133,7 @@ export class SchemaResource extends Resource {
   }
 
   public async deleteElement(elementId: string): Promise<ElementResponse> {
-    const idx = this.elements.findIndex((element: BehaviorSubject<any>, index: number) => {
+    const idx = this.elements.findIndex((element: BehaviorSubject<any>) => {
       return (element.getValue().data as {
         id: string
       }).id === elementId;
