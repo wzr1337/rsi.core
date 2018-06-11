@@ -39,7 +39,7 @@ env:
 matrix:
   fast_finish: true
 install:
-  - npm ci
+  - npm i
 cache:
   directories:
     - ~/.npm # cache npm's cache
