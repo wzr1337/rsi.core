@@ -2,6 +2,8 @@
 
 This Repo holds all core relevant core functionality for RSI
 
+[![Build Status](https://travis-ci.org/wzr1337/rsi.core.svg?branch=master)](https://travis-ci.org/wzr1337/rsi.core)
+
 ## Contribution
 I welcome everyone to contribute to this repo. Let us build awesome software - together. In order to streamline contribution to this repo, some guidelines are described below.
 
