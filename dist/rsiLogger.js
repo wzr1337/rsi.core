@@ -2,7 +2,7 @@
 Object.defineProperty(exports, "__esModule", { value: true });
 var winston = require("winston");
 var LOGFILE = "server.log";
-var RsiLogger = /** @class */ (function () {
+var RsiLogger = (function () {
     function RsiLogger() {
         this.loggers = {};
         if (RsiLogger.instance) {
@@ -13,15 +13,6 @@ var RsiLogger = /** @class */ (function () {
     RsiLogger.getInstance = function () {
         return RsiLogger.instance;
     };
-    /**
-     * get a logger
-     *
-     * @param {string} label the loggers name
-     * @param {string} [level="error"] the log level, defaults to "error"
-     * @returns {IRsiLoggerInstance} an instance of a logger
-     * @memberof RsiLogger
-     */
-    // tslint:disable-next-line:max-line-length
     RsiLogger.prototype.getLogger = function (label, level) {
         if (level === void 0) { level = "error"; }
         if (!this.loggers.hasOwnProperty(label)) {

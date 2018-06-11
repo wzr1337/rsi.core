@@ -12,23 +12,11 @@ export declare enum StatusCode {
     "NOT_IMPLEMENTED" = 501,
     "SERVICE_UNAVAILABLE" = 503
 }
-/**
- * This is an interface definition for the viwi element level access
- *
- * @export
- * @interface Element
- */
 export interface IElement {
     lastUpdate: number;
     propertiesChanged: string[];
     data: any;
 }
-/**
- * The resource updates are handled with this interface
- *
- * @export
- * @interface ResourceUpdate
- */
 export interface IResourceUpdate {
     lastUpdate: number;
     oldValue?: any;
