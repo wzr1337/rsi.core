@@ -1,3 +1,20 @@
+<a name="0.2.9"></a>
+## [0.2.9](https://github.com/wzr1337/rsi.core/compare/0.2.8...0.2.9) (2018-06-11)
+
+
+### Bug Fixes
+
+* **tsc-options:** fix errors reported after using strict compiler opts ([e4f7592](https://github.com/wzr1337/rsi.core/commit/e4f7592))
+
+
+### Features
+
+* **enable-travis:** enable travis together with npm ci and node8 ([77fb4c9](https://github.com/wzr1337/rsi.core/commit/77fb4c9))
+* **tdd:** add jasmine ([c2b2aad](https://github.com/wzr1337/rsi.core/commit/c2b2aad))
+* **tsc-options:** use strict mode and updated config ([bef68b3](https://github.com/wzr1337/rsi.core/commit/bef68b3))
+
+
+
 <a name="0.2.8"></a>
 ## [0.2.8](https://github.com/wzr1337/rsi.core/compare/0.2.7...0.2.8) (2018-06-07)
 
