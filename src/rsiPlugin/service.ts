@@ -12,7 +12,7 @@ export class Service {
     return this.instance || (this.instance = new this());
   }
 
-  private static instance: Service;
+  protected static instance: Service;
   public id: string = "no id set";
   public readonly resources: Resource[] = [];
   protected specification: string = "";
