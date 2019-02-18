@@ -107,4 +107,46 @@ export abstract class Resource {
     /** publish a resource change */
     this._change.next({ lastUpdate: Date.now(), action: "add" } as IResourceUpdate);
   }
+  
+   /**
+   * Get the raw element from the resource
+   *
+   * @param {string} elementId id of the element to be removed
+   * @returns {BehaviorSubject<IElement>} success of removal
+   * @memberof Resource
+   */
+  public getElementById(elementId: string): BehaviorSubject<IElement> {
+    Logger.debug(this.elements, elementId);
+    return this.elements.filter((element: BehaviorSubject<IElement>) => {
+      Logger.debug(elementId, element.getValue());
+      // return element.getValue().data && (element.getValue().data as { id: string }).id !== elementId;
+      return (element.getValue().data as { id: string }).id === elementId;
+    })[0];
+  }
+  
+  /**
+   * Updates a raw element by ID
+   *
+   * @param {string} elementId
+   * @param {*} difference changing and adding to an element
+   * @param {string[]} propertiesChanged 
+   * @returns {boolean}
+   * @memberof Vehicles
+   */
+  public updateElementById(elementId: string, difference:any, propertiesChanged:string[]): boolean{
+    let subject = this.getElementById(elementId);
+    if (!subject) {
+      return false;
+    }
+    let element = {
+      data : {
+        ...subject.getValue().data,
+        ...difference
+      },
+      lastUpdate: Date.now(),
+      propertiesChanged
+    }
+    subject.next(element);
+    return true;
+  }
 }
