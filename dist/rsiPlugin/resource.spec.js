@@ -43,11 +43,11 @@ describe("Resource", function () {
             data: { id: id, name: "foo" }
         };
         var subject = new rxjs_1.BehaviorSubject(element);
-        expect(resource.elements.length).toBe(0);
+        expect(resource.numberOfElements).toBe(0);
         resource.addElement(subject);
-        expect(resource.elements.length).toBe(1);
+        expect(resource.numberOfElements).toBe(1);
         resource.removeElement(id);
-        expect(resource.elements.length).toBe(0);
+        expect(resource.numberOfElements).toBe(0);
     });
     it("should update elments correctly", function () {
         var id = "a22325da-a149-4f0e-8cd8-1df2ecf01001";
@@ -57,9 +57,9 @@ describe("Resource", function () {
             data: { id: id, name: "foo" }
         };
         var subject = new rxjs_1.BehaviorSubject(element);
-        expect(resource.elements.length).toBe(0);
+        expect(resource.numberOfElements).toBe(0);
         resource.addElement(subject);
-        expect(resource.elements.length).toBe(1);
+        expect(resource.numberOfElements).toBe(1);
         var difference = { name: "bar" };
         resource.updateElementById(id, difference, Object.keys(difference));
         expect(resource.getElementById(id).getValue().data.name).toEqual(difference.name);
@@ -76,9 +76,9 @@ describe("Resource", function () {
                         data: { id: id1, name: "foo" }
                     };
                     subject1 = new rxjs_1.BehaviorSubject(element1);
-                    expect(resource.elements.length).toBe(0);
+                    expect(resource.numberOfElements).toBe(0);
                     resource.addElement(subject1);
-                    expect(resource.elements.length).toBe(1);
+                    expect(resource.numberOfElements).toBe(1);
                     id2 = "a17a63e4-fa9a-4bdd-a67e-40af80481c85";
                     element2 = {
                         lastUpdate: 0,
@@ -87,7 +87,7 @@ describe("Resource", function () {
                     };
                     subject2 = new rxjs_1.BehaviorSubject(element2);
                     resource.addElement(subject2);
-                    expect(resource.elements.length).toBe(2);
+                    expect(resource.numberOfElements).toBe(2);
                     _a = expect;
                     return [4, resource.getResource()];
                 case 1:

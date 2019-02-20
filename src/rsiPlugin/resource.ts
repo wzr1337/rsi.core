@@ -1,8 +1,10 @@
 import { BehaviorSubject } from "rxjs";
 import { CollectionResponse, ElementResponse, IElement, IResourceUpdate, Service } from "../";
 
+
 export abstract class Resource {
-  public elements: Array<BehaviorSubject<IElement>> = [];
+  public elements: {[id:string] : BehaviorSubject<IElement>} = {};
+  protected keyOrder: string[] = [];
 
   // subscribe /<service>/<resource>/<element>
   public elementSubscribable?: boolean;
@@ -14,6 +16,17 @@ export abstract class Resource {
 
   constructor(protected service: Service) {
     this._change = new BehaviorSubject({ lastUpdate: Date.now(), action: "init" } as IResourceUpdate);
+  }
+
+  protected removeFromArray(arr:any[], ...what:any[]) {
+    var $what, a = what, L = a.length, ax;
+    while (L > 1 && arr.length) {
+        $what = a[--L];
+        while ((ax= arr.indexOf($what)) !== -1) {
+            arr.splice(ax, 1);
+        }
+    }
+    return arr;
   }
 
   /**
@@ -37,6 +50,10 @@ export abstract class Resource {
     return this._change;
   }
 
+  get numberOfElements(): number {
+    return Object.keys(this.elements).length;
+  }
+
   /**
    * This method responds to GET requests on /<service>/<resource>/ level
    *
@@ -50,7 +67,7 @@ export abstract class Resource {
     limit?: string | number
   ): Promise<CollectionResponse> {
     // retriev all element
-    let resp: Array<BehaviorSubject<IElement>>;
+    let resp: Array<BehaviorSubject<IElement>> = [];
 
     if (
       (typeof offset === "number" && typeof limit === "number") ||
@@ -58,7 +75,9 @@ export abstract class Resource {
       (typeof offset === "number" && !limit) ||
       (!offset && !limit)
     ) {
-      resp = this.elements.slice(offset as number, limit as number);
+      for (const key of this.keyOrder.slice(offset as number, limit as number)) {
+        resp.push(this.elements[key]);
+      }
     }
     return { status: "ok", data: resp };
   }
@@ -82,9 +101,7 @@ export abstract class Resource {
   public async getElement(elementId: string): Promise<ElementResponse> {
     // find the element requested by the client
     return {
-      data: this.elements.find((element: BehaviorSubject<IElement>) => {
-        return (element.getValue().data as { id: string }).id === elementId;
-      }),
+      data: this.elements[elementId],
       status: "ok"
     };
   }
@@ -124,11 +141,10 @@ export abstract class Resource {
    * @memberof Resource
    */
   public removeElement(elementId: string): boolean {
-    const origLen = this.elements.length;
-    this.elements = this.elements.filter((element: BehaviorSubject<IElement>) => {
-      return (element.getValue().data as { id: string }).id !== elementId;
-    });
-    if (this.elements.length < origLen) {
+    const origLen = this.keyOrder.length;
+    this.keyOrder = this.removeFromArray(this.keyOrder, elementId);
+    delete this.elements[elementId];
+    if (this.keyOrder.length < origLen) {
       /** publish a resource change */
       this._change.next({ lastUpdate: Date.now(), action: "remove" } as IResourceUpdate);
       return true;
@@ -144,7 +160,9 @@ export abstract class Resource {
    * @memberof Resource
    */
   public addElement(element: BehaviorSubject<IElement>) {
-    this.elements.push(element);
+    const id = element.getValue().data.id;
+    this.elements[id]=element;
+    this.keyOrder.push(id);
     /** publish a resource change */
     this._change.next({ lastUpdate: Date.now(), action: "add" } as IResourceUpdate);
   }
@@ -157,10 +175,7 @@ export abstract class Resource {
    * @memberof Resource
    */
   public getElementById(elementId: string): BehaviorSubject<IElement> {
-    return this.elements.filter((element: BehaviorSubject<IElement>) => {
-      // return element.getValue().data && (element.getValue().data as { id: string }).id !== elementId;
-      return (element.getValue().data as { id: string }).id === elementId;
-    })[0];
+    return this.elements[elementId];
   }
 
   /**

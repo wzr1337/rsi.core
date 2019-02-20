@@ -43,11 +43,11 @@ describe("Resource", () => {
       data: {id, name: "foo"}
     };
     const subject = new BehaviorSubject(element);
-    expect(resource.elements.length).toBe(0);
+    expect(resource.numberOfElements).toBe(0);
     resource.addElement(subject);
-    expect(resource.elements.length).toBe(1);
+    expect(resource.numberOfElements).toBe(1);
     resource.removeElement(id);
-    expect(resource.elements.length).toBe(0);
+    expect(resource.numberOfElements).toBe(0);
   });
 
   it("should update elments correctly", () => {
@@ -58,9 +58,9 @@ describe("Resource", () => {
       data: {id, name: "foo"}
     };
     const subject = new BehaviorSubject(element);
-    expect(resource.elements.length).toBe(0);
+    expect(resource.numberOfElements).toBe(0);
     resource.addElement(subject);
-    expect(resource.elements.length).toBe(1);
+    expect(resource.numberOfElements).toBe(1);
     const difference = {name:"bar"};
     resource.updateElementById(id, difference, Object.keys(difference));
     expect(resource.getElementById(id).getValue().data.name).toEqual(difference.name);
@@ -74,9 +74,9 @@ describe("Resource", () => {
       data: {id: id1, name: "foo"}
     };
     const subject1 = new BehaviorSubject(element1);
-    expect(resource.elements.length).toBe(0);
+    expect(resource.numberOfElements).toBe(0);
     resource.addElement(subject1);
-    expect(resource.elements.length).toBe(1);
+    expect(resource.numberOfElements).toBe(1);
     const id2 = "a17a63e4-fa9a-4bdd-a67e-40af80481c85"
     const element2:IElement = {
       lastUpdate: 0,
@@ -85,7 +85,7 @@ describe("Resource", () => {
     };
     const subject2 = new BehaviorSubject(element2);
     resource.addElement(subject2);
-    expect(resource.elements.length).toBe(2);
+    expect(resource.numberOfElements).toBe(2);    
     expect((await resource.getResource()).data[1].getValue().data.id).toBe(id2)
   });
 
