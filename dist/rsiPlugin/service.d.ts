@@ -1,7 +1,7 @@
 import { Resource } from "../";
 export declare class Service {
     static getInstance(): Service;
-    private static instance;
+    protected static instance: Service;
     id: string;
     readonly resources: Resource[];
     protected specification: string;

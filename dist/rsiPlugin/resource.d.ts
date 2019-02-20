@@ -17,4 +17,6 @@ export declare abstract class Resource {
     getResourceSpec?(): {};
     removeElement(elementId: string): boolean;
     addElement(element: BehaviorSubject<IElement>): void;
+    getElementById(elementId: string): BehaviorSubject<IElement>;
+    updateElementById(elementId: string, difference: any, propertiesChanged: string[]): boolean;
 }

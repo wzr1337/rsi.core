@@ -65,6 +65,24 @@ var Resource = (function () {
         this.elements.push(element);
         this._change.next({ lastUpdate: Date.now(), action: "add" });
     };
+    Resource.prototype.getElementById = function (elementId) {
+        return this.elements.filter(function (element) {
+            return element.getValue().data.id === elementId;
+        })[0];
+    };
+    Resource.prototype.updateElementById = function (elementId, difference, propertiesChanged) {
+        var subject = this.getElementById(elementId);
+        if (!subject) {
+            return false;
+        }
+        var element = {
+            data: tslib_1.__assign({}, subject.getValue().data, difference),
+            lastUpdate: Date.now(),
+            propertiesChanged: propertiesChanged
+        };
+        subject.next(element);
+        return true;
+    };
     return Resource;
 }());
 exports.Resource = Resource;
