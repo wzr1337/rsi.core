@@ -1,3 +1,18 @@
+<a name="0.3.0"></a>
+# [0.3.0](https://github.com/wzr1337/rsi.core/compare/0.2.9...0.3.0) (2019-02-20)
+
+
+### Bug Fixes
+
+* **service:** instance ust be protected ([418b86b](https://github.com/wzr1337/rsi.core/commit/418b86b))
+
+
+### Features
+
+* **resource:** migrate from list to map for storing elements in resource ([8bb8e00](https://github.com/wzr1337/rsi.core/commit/8bb8e00))
+
+
+
 <a name="0.2.9"></a>
 ## [0.2.9](https://github.com/wzr1337/rsi.core/compare/0.2.8...0.2.9) (2018-06-11)
 
