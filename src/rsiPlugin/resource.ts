@@ -1,11 +1,8 @@
 import { BehaviorSubject } from "rxjs";
 import { CollectionResponse, ElementResponse, IElement, IResourceUpdate, Service } from "../";
 
-
 export abstract class Resource {
-  public elements: {[id:string] : BehaviorSubject<IElement>} = {};
-  protected keyOrder: string[] = [];
-
+  public elements: {[id: string]: BehaviorSubject<IElement>} = {};
   // subscribe /<service>/<resource>/<element>
   public elementSubscribable?: boolean;
   // subscribe /<service>/<resource>/
@@ -14,19 +11,10 @@ export abstract class Resource {
   // tslint:disable-next-line:variable-name
   protected _change: BehaviorSubject<IResourceUpdate>;
 
+  protected keyOrder: string[] = [];
+
   constructor(protected service: Service) {
     this._change = new BehaviorSubject({ lastUpdate: Date.now(), action: "init" } as IResourceUpdate);
-  }
-
-  protected removeFromArray(arr:any[], ...what:any[]) {
-    var $what, a = what, L = a.length, ax;
-    while (L > 1 && arr.length) {
-        $what = a[--L];
-        while ((ax= arr.indexOf($what)) !== -1) {
-            arr.splice(ax, 1);
-        }
-    }
-    return arr;
   }
 
   /**
@@ -59,7 +47,7 @@ export abstract class Resource {
    *
    * @param {(string | number)} [offset] collection offset
    * @param {(string | number)} [limit] limit the number of items per page
-   * @returns {Promise<CollectionResponse>} 
+   * @returns {Promise<CollectionResponse>}
    * @memberof Resource
    */
   public async getResource(
@@ -67,7 +55,7 @@ export abstract class Resource {
     limit?: string | number
   ): Promise<CollectionResponse> {
     // retriev all element
-    let resp: Array<BehaviorSubject<IElement>> = [];
+    const resp: Array<BehaviorSubject<IElement>> = [];
 
     if (
       (typeof offset === "number" && typeof limit === "number") ||
@@ -124,7 +112,7 @@ export abstract class Resource {
    * @memberof Resource
    */
   public deleteElement?(elementId: string): Promise<ElementResponse>;
- 
+
   /**
    * This method responds to GET requests on /<service>/<resource>/$spec queries
    *
@@ -161,7 +149,7 @@ export abstract class Resource {
    */
   public addElement(element: BehaviorSubject<IElement>) {
     const id = element.getValue().data.id;
-    this.elements[id]=element;
+    this.elements[id] = element;
     this.keyOrder.push(id);
     /** publish a resource change */
     this._change.next({ lastUpdate: Date.now(), action: "add" } as IResourceUpdate);
@@ -202,5 +190,20 @@ export abstract class Resource {
     };
     subject.next(element);
     return true;
+  }
+
+  protected removeFromArray(arr: any[], ...what: any[]) {
+    let $what;
+    const a = what;
+    let L = a.length;
+    let ax;
+    while (L > 1 && arr.length) {
+        $what = a[--L];
+        // tslint:disable-next-line: no-conditional-assignment
+        while ((ax = arr.indexOf($what)) !== -1) {
+            arr.splice(ax, 1);
+        }
+    }
+    return arr;
   }
 }

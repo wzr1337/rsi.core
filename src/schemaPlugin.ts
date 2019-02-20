@@ -74,7 +74,8 @@
 //             const data: any = this.data[resourceDef] || [];
 //             this.updateUris(data);
 //             // tslint:disable-next-line:max-line-length
-//             const resource: SchemaResource = new SchemaResource(this, resourceDef, data, content.resources[resourceDef]);
+//             const resource: SchemaResource = new SchemaResource(this,
+//                                                                 resourceDef, data, content.resources[resourceDef]);
 //             this.resourceMap[resourceDef] = resource;
 //             resource.change.subscribe(async () => {
 //               const collectionResponse: CollectionResponse = await resource.getResource();
