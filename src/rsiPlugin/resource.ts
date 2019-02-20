@@ -37,7 +37,14 @@ export abstract class Resource {
     return this._change;
   }
 
-  // GET /<service>/<resource>/
+  /**
+   * This method responds to GET requests on /<service>/<resource>/ level
+   *
+   * @param {(string | number)} [offset] collection offset
+   * @param {(string | number)} [limit] limit the number of items per page
+   * @returns {Promise<CollectionResponse>} 
+   * @memberof Resource
+   */
   public async getResource(
     offset?: string | number,
     limit?: string | number
@@ -56,9 +63,22 @@ export abstract class Resource {
     return { status: "ok", data: resp };
   }
 
-  // POST /<service>/<resource>/
-  public createElement?(state: {}): Promise<ElementResponse>;
-  // GET /<service>/<resource>/<element>
+  /**
+   * This method responds to POST requests on /<service>/<resource>/ level
+   *
+   * @param {object} state of the element to create
+   * @returns {Promise<ElementResponse>}
+   * @memberof Resource
+   */
+  public async createElement?(state: {}): Promise<ElementResponse>;
+
+  /**
+   * This method responds to GET requests on /<service>/<resource>/<element> level
+   *
+   * @param {string} elementId the element in focus
+   * @returns {Promise<ElementResponse>}
+   * @memberof Resource
+   */
   public async getElement(elementId: string): Promise<ElementResponse> {
     // find the element requested by the client
     return {
@@ -68,15 +88,36 @@ export abstract class Resource {
       status: "ok"
     };
   }
-  // POST /<service>/<resource>/<element>
+
+  /**
+   * This method responds to POST requests on /<service>/<resource>/<element> level
+   *
+   * @param {string} elementId id of the element of choice
+   * @param {*} difference the diffence in state to be applied
+   * @returns {Promise<ElementResponse>}
+   * @memberof Resource
+   */
   public updateElement?(elementId: string, difference: any): Promise<ElementResponse>;
-  // DELETE /<service>/<resource>/<element>
+
+  /**
+   * This method responds to DELETE requests on /<service>/<resource>/<element> level
+   *
+   * @param {string} elementId the id of the lement of choice
+   * @returns {Promise<ElementResponse>}
+   * @memberof Resource
+   */
   public deleteElement?(elementId: string): Promise<ElementResponse>;
-  // GET $spec
+ 
+  /**
+   * This method responds to GET requests on /<service>/<resource>/$spec queries
+   *
+   * @returns {object}
+   * @memberof Resource
+   */
   public getResourceSpec?(): {};
 
   /**
-   * Remove an element from the resource
+   * Remove a raw element from the resource
    *
    * @param {string} elementId id of the element to be removed
    * @returns {boolean} success of removal
@@ -97,9 +138,9 @@ export abstract class Resource {
   }
 
   /**
-   * This method adds elements to the resource
+   * This method adds raw element to the resource
    *
-   * @param {BehaviorSubject<IElement>} element to be added
+   * @param {BehaviorSubject<IElement>} element element to be added
    * @memberof Resource
    */
   public addElement(element: BehaviorSubject<IElement>) {
